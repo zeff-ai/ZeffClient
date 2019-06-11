@@ -1,0 +1,41 @@
+############
+# .gitignore
+############
+
+##########
+# Generated project directories
+
+var
+tmp
+
+
+##########
+# Editors
+
+*~
+.*.swp
+Session.vim
+*.sublime-project
+*.sublime-workspace
+
+
+##########
+# Python
+
+.venv
+venv
+VENV
+
+build/
+dist/
+.eggs
+*.egg-info
+pip-wheel-metadata
+
+__pycache__
+*.pyc
+*.pyo
+*.log
+*.orig
+.pycache
+
