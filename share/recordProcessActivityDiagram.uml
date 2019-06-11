@@ -1,0 +1,61 @@
+
+@startuml
+
+|RecordUploader|
+start
+split
+	while (more records to upload?) is (yes)
+		:Reporter.update_metrics;
+		|RecordGenerator|
+		:next();
+		|RecordUploader|
+		:Reporter.generated;
+		:record.validate();
+		if (errors?) then (yes)
+			:Reporter.validate_error;
+		else
+			if (warnings?) then (yes)
+				:Reporter.validate_warning;
+			else (no)
+				:Reporter.validate_success;
+			endif
+			|RESTClient.RecordQueue|
+			:put();
+			|RecordUploader|
+		endif
+	endwhile (no)
+	stop
+split again
+	|RecordGenerator|
+    :create record generator;
+	fork
+		while (is there a record to build?) is (yes)
+			while (is there room in queue?) is (no)
+				:sleep;
+			endwhile (yes)
+			fork
+				:build record;
+				:add record to queue;
+			endfork
+		endwhile (no)
+	endfork
+	stop
+	|RecordUploader|
+split again
+	|RESTClient.RecordQueue|
+    :create RESTClient;
+	fork
+		while (continue processing queue?) is (yes)
+			:get;
+			:upload record to server;
+		    note right
+				Multiple records per request and multiple
+				pipelines will be handled in this step
+			end note
+		endwhile (no)
+	endfork
+	stop
+	|RecordUploader|
+end split
+
+@enduml
