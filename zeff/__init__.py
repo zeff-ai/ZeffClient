@@ -1,67 +1,35 @@
 # -*- coding: UTF-8 -*-
 # ----------------------------------------------------------------------------
-"""
-####
-Zeff
-####
+"""Zeff client library to Zeff Cloud API.
 
-*****
-Usage
-*****
-
-Name
-====
-    zeff
+Zeff is a Python package that dimplifies the creation, modification,
+and uploading of records to Zeff Cloud API.
 
 
-Synopsis
-========
-    ``zeff``
-
-
-Description
+Environment
 ===========
-    ``zeff`` simplifies experimentation with Zeff Cloud API.
 
 
-Options
+Loggers
 =======
 
-    ``-v --verbose {{critical,error,warning,info,debug}}``
-        Change the logging level of the handler named ``console`` from
-        the logging configuration file. This has no effect on any other
-        handler or logger.
+- ``zeffclient.record_builder``
+    Logger that should be used by record builder's, including those
+    made by users of ZeffClient.
 
-    ``--logging-conf``
-        Custom logging configuration file using Python logging
-        dictionary configuration.
+- ``zeffclient.record_generator``
+    Logger used by the record generation subsystem.
+
+- ``zeffclient.validator``
+    Logger used by the record validation subsystem.
+
+- ``zeffclient.submitter``
+    Logger used by the record submission subsystem.
 
 
-Exit Status
-===========
-The following exit values shall be returned:
-
-0
-    Successful completion.
-
->0
-    An error occurred (Standard errors from <errno.h>).
-
-**********
-References
-**********
-
-.. [RFC2119] RFC2119, Key words for use in RFCs to Indicate Requirement
-    Levels, S. Bradner, March 1997.
-
-.. [RFC3986] RFC3986, Uniform Resource Identifier (URI): Generic Syntax,
-    T. Berners-Lee, R. Fielding, L. Masinter, January 2005.
-
-.. [RFC5424] RFC5424, The Syslog Protocol, R. Gerhards, March 2009.
 """
 __copyright__ = """Copyright (C) 2019 Ziff, Inc."""
 __docformat__ = "reStructuredText en"
 __version__ = '0.0.0'
 
-
-
+from .recordgenerator import *

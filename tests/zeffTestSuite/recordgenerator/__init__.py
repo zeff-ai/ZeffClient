@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 # -----------------------------------------------------------------------------
-"""Zeff test suite."""
+"""Zeff recordgenerator test suite."""
 __copyright__ = """Copyright (C) 2019 Ziff, Inc."""
 __docformat__ = "reStructuredText en"
 
@@ -22,3 +22,4 @@ def OFF_test_suite():
     import unittest
     loader = unittest.TestLoader()
     return loader.loadTestsFromModule(__package__)
+

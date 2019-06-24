@@ -1,7 +1,4 @@
-# -*- coding: UTF-8 -*-
-# ----------------------------------------------------------------------------
-"""Reporter is a protocol that allows tracking of records in the pipeline.
-"""
+"""Reporter is a protocol that allows tracking of records in the pipeline."""
 __copyright__ = """Copyright (C) 2019 Ziff, Inc."""
 __docformat__ = "reStructuredText en"
 
@@ -9,34 +6,38 @@ import logging
 
 
 class Reporter():
+    """TBD."""
 
     def generated(self, record):
-        pass
+        """TBD."""
 
     def validate_success(self, record):
-        pass
+        """TBD."""
 
     def validate_warning(self, record, error: Exception):
-        pass
+        """TBD."""
 
     def validate_error(self, record, error: Exception):
-        pass
+        """TBD."""
 
     def submit_success(self, record):
-        pass
+        """TBD."""
 
     def submit_error(self, record, error: Exception):
-        pass
+        """TBD."""
 
 
 class LoggingReporter(Reporter):
-    """Implementation of Reporter protocol that will log reporting events
+    """TBD.
+
+    Implementation of Reporter protocol that will log reporting events
     to the ``logging.Logger`` object.
 
     :param logger: The ``logging.Logger`` object to log reporting events.
     """
 
     def __init__(self, logger: logging.Logger):
+        """TBD."""
         self.logger = logger
 
     def generated(self, record):
@@ -62,4 +63,3 @@ class LoggingReporter(Reporter):
     def submit_error(self, record, error: Exception):
         """Log record submit error to ERROR level."""
         self.logger.error("Record Validation Error: %s, %s", record, error)
-    

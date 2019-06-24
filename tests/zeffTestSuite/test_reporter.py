@@ -1,13 +1,9 @@
-# -*- coding: UTF-8 -*-
-# ----------------------------------------------------------------------------
-"""ZeffLib test suite."""
-__copyright__ = """Copyright (C) 2019 Ziff, Inc."""
-__docformat__ = "reStructuredText en"
+"""Zeff test suite."""
 
 import unittest
 from unittest.mock import Mock
 import logging
-from zefflib.reporter import LoggingReporter
+from zeff.reporter import LoggingReporter
 
 class LoggingReporterTestCase(unittest.TestCase):
 

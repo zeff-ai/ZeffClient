@@ -28,6 +28,7 @@ VENV
 
 build/
 dist/
+sdist/
 .eggs
 *.egg-info
 pip-wheel-metadata
@@ -38,4 +39,10 @@ __pycache__
 *.log
 *.orig
 .pycache
+
+.pytest_cache/
+.coverage/
+coverage_html_report/
+.mypy_cache/
+.hypothesis/
 

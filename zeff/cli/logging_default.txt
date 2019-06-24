@@ -1,0 +1,46 @@
+{
+    'version': 1,
+    'root': {
+        'level': 'INFO',
+        'handlers': ['console']
+    },
+	'loggers': {
+        'zeffclient.record_builder': {
+            'level': 'DEBUG',
+        },
+		'zeffclient.record_generator': {
+            'level': 'DEBUG',
+		},
+		'zeffclient.validator': {
+            'level': 'DEBUG',
+		},
+		'zeffclient.submitter': {
+            'level': 'DEBUG',
+		},
+	},
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'level': 'DEBUG',
+            'stream': 'ext://sys.stdout',
+            'formatter': 'precise'
+        },
+    },
+    'formatters': {
+        'precise': {
+            'format':
+            '%(asctime)s %(processName)s %(name)-28s %(levelname)-8s [%(lineno)03d]%(module)-24s %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+        'brief': {
+            'format':
+            '%(processName)s:%(name)s:%(levelname)s:%(module)s.%(funcName)s:%(message)s'
+        },
+        'default': {
+            'format':
+            '%(asctime)s %(processName)s %(name)-8s %(levelname)-8s %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        }
+    },
+}
+

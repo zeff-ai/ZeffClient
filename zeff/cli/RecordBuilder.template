@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+"""Zeff record builder for ${name} records."""
+__version__ = '0.0'
+
+import logging
+logging = logging.getLogger('zeffclient.record_builder')
+
+
+class ${name}RecordBuilder():
+    """Zeff record builder callable object that builds ${name} records."""
+
+    def __init__(self, *args, **argv):
+        pass
+
+    def __call__(self, url):
+        logging.info("Begin building ``${name}`` record from %s", url)
+        # Your record build code goes here
+        logging.info("End building ``${name}`` record from %s", url)
+
+
+if __name__ == "__main__":
+    import sys
+    import errno
+    import argparse
+    from logging import basicConfig, DEBUG
+    basicConfig(level=DEBUG)
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}")
+    parser.add_argument(
+        "recordurl",
+        help="URL to information to build ${name} record")
+    options = parser.parse_args()
+
+    try:
+        builder = ${name}RecordBuilder()
+        builder(options.recordurl)
+    except SystemExit as err:
+        logging.info("System exit")
+        raise
+    except InterruptedError as err:
+        logging.info("Interrupt")
+    except KeyboardInterrupt as err:
+        logging.debug("Keyboard interrupt")
+        sys.exit(errno.EINTR)
+    except Exception as err:
+        logging.exception("Unhandled exception.")
+        sys.exit(1)

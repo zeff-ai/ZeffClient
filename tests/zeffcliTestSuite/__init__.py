@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 # -----------------------------------------------------------------------------
-"""ZeffLib test suite."""
+"""Zeff CLI tool test suite."""
 __copyright__ = """Copyright (C) 2019 Ziff, Inc."""
 __docformat__ = "reStructuredText en"
 
@@ -9,7 +9,7 @@ __docformat__ = "reStructuredText en"
 def OFF_load_tests(loader, tests, pattern):
     import importlib
     for name in [
-            ".test_reporter"
+            ".test_compile"
         ]:
         m = importlib.import_module(name, __package__)
         m_tests = loader.loadTestsFromModule(m, pattern)
