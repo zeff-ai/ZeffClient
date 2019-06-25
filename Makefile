@@ -70,14 +70,14 @@ dependencies: dependencies_docs dependencies_build dependencies_test  ## Install
 
 dependencies_docs:
 	@echo Install documentation dependencies
-	${PIP} ${PIPFLAGS} install --upgrade ".[docs]"
+	${PIP} ${PIPFLAGS} install --upgrade -e ".[docs]"
 
 dependencies_build:
 	@echo Install build dependencies
 
 dependencies_test:
 	@echo Install test dependencies
-	${PIP} ${PIPFLAGS} install --upgrade ".[tests]"
+	${PIP} ${PIPFLAGS} install --upgrade -e ".[tests]"
 
 
 help:

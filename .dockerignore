@@ -1,0 +1,65 @@
+# macOS
+.DS_Store
+
+# CI/CD
+.codefresh
+
+# Docker
+.dockerignore
+
+# git
+.git
+.gitignore
+
+# Python Compiled
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/*.log
+**/*.orig
+**/.pycache
+
+# Distribution / packaging
+build/
+dist/
+sdist/
+var/
+tmp/
+.eggs/
+*.egg-info/
+pip-wheel-metadata
+
+# Unit test / coverage reports
+.pytest_cache/
+.coverage/
+coverage_html_report/
+.mypy_cache/
+.hypothesis/
+
+# Environments
+.venv/
+venv/
+VENV/
+
+
+### Vim template
+# Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+
+# Temporary
+.netrwhist
+*~
+
+# Auto-generated tag files
+tags
+
+# Persistent undo
+[._]*.un~
+
