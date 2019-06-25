@@ -42,7 +42,7 @@ clean_cache:		## Clean caches
 	@rm -rf .hypothesis
 
 
-build:				## Build into ``./build`` directory
+build: dependencies_build	## Build into ``./build`` directory
 	python setup.py build
 
 
@@ -51,7 +51,7 @@ test: build dependencies_test	## Run test suite
 		coverage html
 
 
-lint:				## Check source for conformance
+lint: dependencies_test		## Check source for conformance
 	@echo Checking source conformance
 	pylint -f parseable -r n zeff && \
 		pycodestyle zeff && \
@@ -64,13 +64,16 @@ lint:				## Check source for conformance
 ###
 ### Dependencies
 
-.PHONY: dependencies dependencies_docs dependencies_test
+.PHONY: dependencies dependencies_docs dependencies_build dependencies_test
 
-dependencies: dependencies_docs dependencies_test  ## Install dependencies in the current virtualenv
+dependencies: dependencies_docs dependencies_build dependencies_test  ## Install dependencies in the current virtualenv
 
 dependencies_docs:
 	@echo Install documentation dependencies
 	${PIP} ${PIPFLAGS} install --upgrade ".[docs]"
+
+dependencies_build:
+	@echo Install build dependencies
 
 dependencies_test:
 	@echo Install test dependencies
