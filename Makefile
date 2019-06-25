@@ -5,7 +5,9 @@ PIP = python -m pip
 PIPFLAGS = --quiet
 
 
-install:			## Install dependencies in virtualenv
+install:			## Install system
+	@${PIP} ${PIPFLAGS} install --upgrade pip
+	@${PIP} ${PIPFLAGS} install --upgrade -e .
 	python setup.py install
 
 
@@ -13,10 +15,12 @@ publish:			## Publish the library to the central PyPi repository
 	echo python setup.py sdist upload
 
 
-validate: build lint test	## Validate project for CI, CD, and publish
+validate: lint test	## Validate project for CI, CD, and publish
 
 
 docs:				## Create documentation
+	@${PIP} ${PIPFLAGS} install --upgrade pip
+	@${PIP} ${PIPFLAGS} install --upgrade -e ".[docs]"
 	python -c 'import zeff; print(zeff.__doc__)' | \
 		sed '1,3d' | \
 		rst2man.py > spam.man
@@ -42,42 +46,28 @@ clean_cache:		## Clean caches
 	@rm -rf .hypothesis
 
 
-build: dependencies_build	## Build into ``./build`` directory
+build:				## Build into ``./build`` directory
+	@${PIP} ${PIPFLAGS} install --upgrade pip
+	@${PIP} ${PIPFLAGS} install --upgrade -e .
 	python setup.py build
 
 
-test: build dependencies_test	## Run test suite
+test:				## Run test suite
+	@${PIP} ${PIPFLAGS} install --upgrade pip
+	@${PIP} ${PIPFLAGS} install --upgrade -e ".[tests]"
 	python -m pytest --cov=zeff && \
 		coverage html
 
 
-lint: dependencies_test		## Check source for conformance
+lint:				## Check source for conformance
 	@echo Checking source conformance
+	@${PIP} ${PIPFLAGS} install --upgrade pip
+	@${PIP} ${PIPFLAGS} install --upgrade -e ".[lint]"
 	pylint -f parseable -r n zeff && \
 		pycodestyle zeff && \
 		pydocstyle zeff 
 
 #mypy zeff 
-
-
-
-###
-### Dependencies
-
-.PHONY: dependencies dependencies_docs dependencies_build dependencies_test
-
-dependencies: dependencies_docs dependencies_build dependencies_test  ## Install dependencies in the current virtualenv
-
-dependencies_docs:
-	@echo Install documentation dependencies
-	${PIP} ${PIPFLAGS} install --upgrade -e ".[docs]"
-
-dependencies_build:
-	@echo Install build dependencies
-
-dependencies_test:
-	@echo Install test dependencies
-	${PIP} ${PIPFLAGS} install --upgrade -e ".[tests]"
 
 
 help:

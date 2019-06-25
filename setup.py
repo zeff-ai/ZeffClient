@@ -48,15 +48,17 @@ setup(
         'docs': [
             "docutils>=0.3",
         ],
+        'lint': [
+            "pylint>=2.3",
+            "pycodestyle>=2.5",
+            "pydocstyle>=3.0",
+            "mypy>=0.710",
+        ],
         'tests': [
             "pytest>=4.6",
             "pytest-cov>=2.7",
             "coverage>=4.0",
             "hypothesis>=4.23",
-            "pylint>=2.3",
-            "pycodestyle>=2.5",
-            "pydocstyle>=3.0",
-            "mypy>=0.710",
         ],
     },
     packages=[

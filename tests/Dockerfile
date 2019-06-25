@@ -6,8 +6,7 @@ WORKDIR /usr/src/zeffclient
 
 COPY . /usr/src/zeffclient
 
-RUN pip install --upgrade pip && \
-    pip install -e .
+RUN make install
 
-CMD [ "python", "setup.py", "build" ]
+CMD [ "bash" ]
 
