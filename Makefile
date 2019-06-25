@@ -1,17 +1,16 @@
 .POSIX:
 .PHONY: publish validate build test lint help
 
-
 PIP = python -m pip
 PIPFLAGS = --quiet
 
 
 install:			## Install dependencies in virtualenv
-	@python setup.py install
+	python setup.py install
 
 
 publish:			## Publish the library to the central PyPi repository
-	@echo python setup.py sdist upload
+	echo python setup.py sdist upload
 
 
 validate: build lint test	## Validate project for CI, CD, and publish
@@ -44,17 +43,17 @@ clean_cache:		## Clean caches
 
 
 build:				## Build into ``./build`` directory
-	@python setup.py build
+	python setup.py build
 
 
 test: build dependencies_test	## Run test suite
-	@python -m pytest --cov=zeff && \
-	    coverage html
+	python -m pytest --cov=zeff && \
+		coverage html
 
 
 lint:				## Check source for conformance
 	@echo Checking source conformance
-	@pylint -f parseable -r n zeff && \
+	pylint -f parseable -r n zeff && \
 		pycodestyle zeff && \
 		pydocstyle zeff 
 
@@ -65,16 +64,18 @@ lint:				## Check source for conformance
 ###
 ### Dependencies
 
+.PHONY: dependencies dependencies_docs dependencies_test
+
 dependencies: dependencies_docs dependencies_test  ## Install dependencies in the current virtualenv
 
 dependencies_docs:
 	@echo Install documentation dependencies
-	@${PIP} ${PIPFLAGS} install --upgrade ".[docs]"
+	${PIP} ${PIPFLAGS} install --upgrade ".[docs]"
 
 dependencies_test:
 	@echo Install test dependencies
-	@${PIP} ${PIPFLAGS} install --upgrade ".[tests]"
-		
+	${PIP} ${PIPFLAGS} install --upgrade ".[tests]"
+
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
