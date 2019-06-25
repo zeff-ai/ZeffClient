@@ -77,6 +77,6 @@ setup(
             'zeff = zeff.cli.__main__:main'
         ]
     },
-    test_suite="tests.zefflibTestSuite",
+    test_suite="tests.zeffTestSuite",
     data_files=[],
 )

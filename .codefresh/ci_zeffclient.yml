@@ -26,4 +26,4 @@ steps:
     image: ${{ZeffClientImage}}
     working_directory: ${{CloneZeffClient}}
     commands:
-      - python setup.py test
+      - make validate
