@@ -1,0 +1,14 @@
+@startuml
+
+
+
+RecordUploader -> RecordGenerator: next()
+RecordGenerator --> RecordUploader: record
+RecordUploader -> Reporter: generated
+RecordUploader -> record: validate
+record -> RecordUploader
+
+
+
+
+@enduml
