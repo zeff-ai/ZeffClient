@@ -2,9 +2,9 @@ FROM python:3
 
 MAINTAINER "Lance Finn Helsten" <lanhel@flyingtitans.com>
 
-WORKDIR ${CF_VOLUME_PATH:-/usr/src}/ZeffClient
+WORKDIR /usr/src/zeffclient
 
-COPY . ${CF_VOLUME_PATH:-/usr/src}/ZeffClient
+COPY . /usr/src/zeffclient
 
 RUN make install
 
