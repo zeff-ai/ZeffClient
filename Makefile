@@ -9,8 +9,6 @@ install:			## Install system
 	@${PIP} ${PIPFLAGS} install --upgrade pip
 	@${PIP} ${PIPFLAGS} install --upgrade -e .
 	python setup.py install
-	@echo Remove ZeffClient.egg-link
-	@find `dirname \`which zeff\``/.. -name ZeffClient.egg-link -delete
 
 
 publish:			## Publish the library to the central PyPi repository
