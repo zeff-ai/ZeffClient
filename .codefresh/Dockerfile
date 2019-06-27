@@ -7,7 +7,7 @@ WORKDIR /usr/local/src/zeffclient
 COPY . /usr/local/src/zeffclient
 
 RUN make install && \
- rm -f "/usr/local/lib/python3.7/site-packages/ZeffClient.egg-link" && \
+ find `dirname \`which zeff\``/.. -name "ZeffClient.egg-link" -delete && \
  rm -rf "/usr/local/src/zeffclient"
 
 # ENV EGG_LINK_FILE="/usr/local/lib/python3.7/site-packages/ZeffClient.egg-link"
