@@ -7,16 +7,8 @@ WORKDIR /usr/local/src/zeffclient
 COPY . /usr/local/src/zeffclient
 
 RUN make install && \
- find `dirname \`which zeff\``/.. -name "ZeffClient.egg-link" -delete && \
+ rm -f "/usr/local/lib/python3.7/site-packages/ZeffClient.egg-link" && \
  rm -rf "/usr/local/src/zeffclient"
-
-# ENV EGG_LINK_FILE="/usr/local/lib/python3.7/site-packages/ZeffClient.egg-link"
-# ENV CLONEZEFFCLIENT="/codefresh/volume/ZeffClient"
-# RUN if [ -f "${EGG_LINK_FILE}" ]; then \
-        # rm "${EGG_LINK_FILE}"; \
-	    # echo ${CLONEZEFFCLIENT} > "${EGG_LINK_FILE}"; \
-	    # echo ".%" >> "${EGG_LINK_FILE}"; \
-    # fi
 
 CMD [ "bash" ]
 
