@@ -64,6 +64,7 @@ setup(
     packages=[
         'zeff',
         'zeff.cli',
+        'zeff.record',
         'zeff.recordgenerator',
     ],
     package_data={
