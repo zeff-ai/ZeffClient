@@ -66,7 +66,7 @@ lint:				## Check source for conformance
 	pylint -f parseable -r n zeff && \
 		pycodestyle zeff && \
 		pydocstyle zeff && \
-		mypy zeff 
+		@echo mypy zeff 
 
 
 help:
