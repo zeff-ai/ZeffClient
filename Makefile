@@ -65,9 +65,8 @@ lint:				## Check source for conformance
 	@${PIP} ${PIPFLAGS} install --upgrade -e ".[lint]"
 	pylint -f parseable -r n zeff && \
 		pycodestyle zeff && \
-		pydocstyle zeff
-
-#mypy zeff 
+		pydocstyle zeff && \
+		mypy zeff 
 
 
 help:

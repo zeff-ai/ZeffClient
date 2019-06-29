@@ -4,6 +4,7 @@
 __docformat__ = "reStructuredText en"
 
 import dataclasses
+from typing import Optional
 
 from .aggregator import aggregation
 from .record import Record
@@ -15,7 +16,7 @@ class UnstructuredData():
     """This represents a set of unstructured data items."""
 
 
-@aggregation(UnstructuredData)
+@aggregation(UnstructuredData, contained_prop_name='unstructured_data_items')
 @dataclasses.dataclass(eq=True, frozen=True)
 class UnstructuredDataItem():
     """Single item in UnstruturedData.
@@ -34,4 +35,4 @@ class UnstructuredDataItem():
 
     data: str
     media_type: str
-    group_by: str = None
+    group_by: Optional[str] = None

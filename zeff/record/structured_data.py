@@ -15,7 +15,7 @@ class StructuredData():
     """This represents a set of structured data items."""
 
 
-@aggregation(StructuredData)
+@aggregation(StructuredData, contained_prop_name='structured_data_items')
 @dataclasses.dataclass(eq=True, frozen=True)
 class StructuredDataItem():
     """Single item in StruturedData.

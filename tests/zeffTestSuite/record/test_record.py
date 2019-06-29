@@ -1,5 +1,7 @@
 """Zeff test suite."""
 
+import pytest
+
 from zeff.record import (
     Record,
     StructuredData, StructuredDataItem,
@@ -31,8 +33,8 @@ def test_build():
     sdi = StructuredDataItem("TestName", "TestValue", "TestTarget", "TestDataType")
     assert sdi.structured_data is None
     sdi.structured_data = sd
-    assert sdi in list(sd.structured_data_item)
-    assert len(list(sd.structured_data_item)) == 1
+    assert sdi in list(sd.structured_data_items)
+    assert len(list(sd.structured_data_items)) == 1
 
 
     ## UnstructuredData
@@ -47,7 +49,27 @@ def test_build():
     udi = UnstructuredDataItem("http://example.com", "text/plain")
     assert udi.unstructured_data is None
     udi.unstructured_data = ud
-    assert udi in list(ud.unstructured_data_item)
-    assert len(list(ud.unstructured_data_item)) == 1
+    assert udi in list(ud.unstructured_data_items)
+    assert len(list(ud.unstructured_data_items)) == 1
 
 
+def test_invalid_aggregation():
+    """Test that invalid associations are prohibited.
+
+    This mainly tests that ``aggregation`` is working correctly.
+    """
+    r0 = Record("Test0")
+    r1 = Record("Test1")
+    sd = StructuredData()
+
+    with pytest.raises(ValueError):
+        sd.record = None
+
+    with pytest.raises(TypeError):
+        sd.record = "SPAM"
+
+    sd.record = r0
+    with pytest.raises(ValueError):
+        sd.record = r1
+
+    del sd.record
