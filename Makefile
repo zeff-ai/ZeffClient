@@ -66,7 +66,14 @@ lint:				## Check source for conformance
 	pylint -f parseable -r n zeff && \
 		pycodestyle zeff && \
 		pydocstyle zeff && \
-		mypy zeff 
+		mypy zeff
+
+
+format:				## Format source code to standard
+	@echo Formatting source
+	@${PIP} ${PIPFLAGS} install --upgrade -e ".[dev]"
+	find zeff -name '*.py' -exec black -q {} \;
+	find tests -name '*.py' -exec black -q {} \;
 
 
 help:

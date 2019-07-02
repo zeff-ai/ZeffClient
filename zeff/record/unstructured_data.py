@@ -12,13 +12,13 @@ from .record import Record
 
 @aggregation(Record)
 @dataclasses.dataclass(unsafe_hash=True)
-class UnstructuredData():
+class UnstructuredData:
     """This represents a set of unstructured data items."""
 
 
-@aggregation(UnstructuredData, contained_prop_name='unstructured_data_items')
+@aggregation(UnstructuredData, contained_prop_name="unstructured_data_items")
 @dataclasses.dataclass(eq=True, frozen=True)
-class UnstructuredDataItem():
+class UnstructuredDataItem:
     """Single item in UnstruturedData.
 
     An unstructured data time is a URI to ``data`` that has an

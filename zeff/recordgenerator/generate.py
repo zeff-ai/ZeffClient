@@ -1,11 +1,10 @@
 """Zeff record generation."""
 __docformat__ = "reStructuredText en"
-__all__ = [
-    "generate"
-]
+__all__ = ["generate"]
 
 import logging
-logger = logging.getLogger('zeffclient.record_generator')  # pylint: disable=invalid-name
+
+LOGGER = logging.getLogger("zeffclient.record_generator")
 
 
 def generate(record_url_generator, record_builder):
@@ -19,8 +18,8 @@ def generate(record_url_generator, record_builder):
         URL parameter and return a Zeff record type (e.g.
         `zeff.record.Record` or `zeff.temporalrecord.TemporalRecord`).
     """
-    logger.info("Begin generating records ...")
+    LOGGER.info("Begin generating records ...")
     for url in record_url_generator:
         record = record_builder(url)
         yield record
-    logger.info("End generating records ...")
+    LOGGER.info("End generating records ...")

@@ -2,11 +2,7 @@
 import pathlib
 import urllib
 
-__all__ = [
-        "entry_url_generator",
-        "file_url_generator",
-        "directory_url_generator"
-    ]
+__all__ = ["entry_url_generator", "file_url_generator", "directory_url_generator"]
 
 # To Do Generators
 # 1. HTTP index URL generator
@@ -27,14 +23,14 @@ def entry_url_generator(dirurl, allow=lambda p: True):
     """
     dirurl = str(dirurl)
     url_parts = urllib.parse.urlsplit(dirurl)
-    if url_parts.scheme in ['', 'file']:
+    if url_parts.scheme in ["", "file"]:
         dirpath = pathlib.Path(url_parts.path)
     else:
         raise ValueError("URL is not a ``file`` scheme.")
     for path in (p for p in dirpath.iterdir() if allow(p)):
-        if path.name.startswith('.'):
+        if path.name.startswith("."):
             continue
-        url = urllib.parse.urlunsplit(('file', '', str(path), '', ''))
+        url = urllib.parse.urlunsplit(("file", "", str(path), "", ""))
         yield url
 
 

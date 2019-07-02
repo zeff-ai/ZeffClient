@@ -1,6 +1,6 @@
 """Zeff subcommand to create a template builder for users."""
 __docformat__ = "reStructuredText en"
-__all__ = ['template_subparser']
+__all__ = ["template_subparser"]
 
 import sys
 import pathlib
@@ -13,17 +13,19 @@ def template_subparser(subparsers):
     :param subparsers: The subparser to add the template sub-command.
     """
     import argparse
-    parser = subparsers.add_parser('template')
+
+    parser = subparsers.add_parser("template")
     parser.add_argument(
-        'name',
-        help='Name of record to be built. Class name will be ${name}RecordBuilder.'
-        )
+        "name",
+        help="Name of record to be built. Class name will be ${name}RecordBuilder.",
+    )
     parser.add_argument(
-        '-o',
-        dest='filepath',
-        type=argparse.FileType('w'),
+        "-o",
+        dest="filepath",
+        type=argparse.FileType("w"),
         default=sys.stdout,
-        help='Path for file to save new builder class (default: stdout).')
+        help="Path for file to save new builder class (default: stdout).",
+    )
     parser.set_defaults(func=build_from_template)
 
 

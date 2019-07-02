@@ -26,8 +26,10 @@ def aggregation(cls_container, container_prop_name=None, contained_prop_name=Non
         name of the class of contained objects will be converted to
         snake case.
     """
+
     def container_property(cls_contained, attr_name):
         """Get an iterator for all {0.__name__} elements."""
+
         def getter(self):
             prop = getattr(self, attr_name, set())
             return iter(prop)
@@ -36,9 +38,10 @@ def aggregation(cls_container, container_prop_name=None, contained_prop_name=Non
         return property(fget=getter, doc=str(doc))
 
     def contained_property(
-            cls_container, container_prop_name, container_attr_name,
-            contained_attr_name):
+        cls_container, container_prop_name, container_attr_name, contained_attr_name
+    ):
         """TBW."""
+
         def getter(self):
             """Get, set, or delete this object in {0.__name__}.
 
@@ -47,13 +50,18 @@ def aggregation(cls_container, container_prop_name=None, contained_prop_name=Non
                 already set. In either case use ``del x.{1}()``.
             """
             return getattr(self, container_attr_name)
+
         getter.__doc__ = getter.__doc__.format(cls_container, container_prop_name)
 
         def setter(self, value: cls_container):
             if value is None:
-                raise ValueError(f"Reference to {cls_container.__name__} cannot be None")
-            if (getattr(self, container_attr_name) is not None and
-                    getattr(self, container_attr_name) != value):
+                raise ValueError(
+                    f"Reference to {cls_container.__name__} cannot be None"
+                )
+            if (
+                getattr(self, container_attr_name) is not None
+                and getattr(self, container_attr_name) != value
+            ):
                 raise ValueError(f"Item is associated with a {cls_container.__name__}")
             if not isinstance(value, cls_container):
                 raise TypeError(f"Container must be of type {cls_container.__name__}")
@@ -63,26 +71,22 @@ def aggregation(cls_container, container_prop_name=None, contained_prop_name=Non
             getattr(getattr(self, container_attr_name), contained_attr_name).add(self)
 
         def deleter(self):
-            getattr(
-                getattr(self, container_attr_name),
-                contained_attr_name).remove(self)
+            getattr(getattr(self, container_attr_name), contained_attr_name).remove(
+                self
+            )
             setattr(self, container_attr_name, None)
 
-        return property(
-            fget=getter,
-            fset=setter,
-            fdel=deleter,
-            doc=getter.__doc__)
+        return property(fget=getter, fset=setter, fdel=deleter, doc=getter.__doc__)
 
     def decorator(
-            cls_contained,
-            cls_container=cls_container,
-            container_prop_name=container_prop_name,
-            contained_prop_name=contained_prop_name):
-
+        cls_contained,
+        cls_container=cls_container,
+        container_prop_name=container_prop_name,
+        contained_prop_name=contained_prop_name,
+    ):
         def snake_case(cls):
             name = cls.__name__
-            name = re.sub(r'([A-Z])', r'_\1', name).lstrip('_')
+            name = re.sub(r"([A-Z])", r"_\1", name).lstrip("_")
             name = name.lower()
             return name
 
@@ -95,37 +99,38 @@ def aggregation(cls_container, container_prop_name=None, contained_prop_name=Non
                         object.__setattr__(self, name, value)
                     else:
                         orig_setattr(self, name, value)
+
                 return aggregator_setattr
+
             if hasattr(cls, "__setattr__"):
                 setattr(cls, "__setattr__", wrap_setattr(cls, prop_name, attr_name))
 
         if not contained_prop_name:
             contained_prop_name = snake_case(cls_contained)
-        contained_attr_name = f'_{cls_container.__name__}__{contained_prop_name}'
+        contained_attr_name = f"_{cls_container.__name__}__{contained_prop_name}"
 
         if not container_prop_name:
             container_prop_name = snake_case(cls_container)
-        container_attr_name = f'__{container_prop_name}'
+        container_attr_name = f"__{container_prop_name}"
 
         setattr(
             cls_container,
             contained_prop_name,
-            container_property(cls_contained, contained_attr_name))
+            container_property(cls_contained, contained_attr_name),
+        )
 
-        contained_setattr(
-            cls_contained,
-            container_prop_name,
-            container_attr_name)
-        setattr(
-            cls_contained,
-            container_attr_name,
-            None)
+        contained_setattr(cls_contained, container_prop_name, container_attr_name)
+        setattr(cls_contained, container_attr_name, None)
         setattr(
             cls_contained,
             container_prop_name,
             contained_property(
-                cls_container, container_prop_name, container_attr_name,
-                contained_attr_name))
+                cls_container,
+                container_prop_name,
+                container_attr_name,
+                contained_attr_name,
+            ),
+        )
         return cls_contained
 
     return decorator

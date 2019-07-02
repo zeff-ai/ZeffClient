@@ -11,13 +11,13 @@ from .aggregator import aggregation
 
 @aggregation(Record)
 @dataclasses.dataclass(unsafe_hash=True)
-class StructuredData():
+class StructuredData:
     """This represents a set of structured data items."""
 
 
-@aggregation(StructuredData, contained_prop_name='structured_data_items')
+@aggregation(StructuredData, contained_prop_name="structured_data_items")
 @dataclasses.dataclass(eq=True, frozen=True)
-class StructuredDataItem():
+class StructuredDataItem:
     """Single item in StruturedData.
 
     A structured data item is a mapping of ``name`` to ``value``

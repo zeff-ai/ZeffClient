@@ -3,7 +3,7 @@
 __docformat__ = "reStructuredText en"
 
 
-class Record():
+class Record:
     """This represents a single record in Zeff."""
 
     def __init__(self, name: str):

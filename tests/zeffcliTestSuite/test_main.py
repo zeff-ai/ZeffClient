@@ -10,7 +10,4 @@ from zeff.cli.__main__ import main
 
 def OFF_test_help():
     # This will cause the entire system to exit
-    main(args=[
-        '--help'
-    ])
-
+    main(args=["--help"])

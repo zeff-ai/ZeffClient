@@ -4,8 +4,10 @@ import pytest
 
 from zeff.record import (
     Record,
-    StructuredData, StructuredDataItem,
-    UnstructuredData, UnstructuredDataItem
+    StructuredData,
+    StructuredDataItem,
+    UnstructuredData,
+    UnstructuredDataItem,
 )
 
 
@@ -19,7 +21,6 @@ def test_build():
     r = Record("Test")
     assert len(list(r.structured_data)) == 0
     assert len(list(r.unstructured_data)) == 0
-
 
     ## StructuredData
 
@@ -35,7 +36,6 @@ def test_build():
     sdi.structured_data = sd
     assert sdi in list(sd.structured_data_items)
     assert len(list(sd.structured_data_items)) == 1
-
 
     ## UnstructuredData
 

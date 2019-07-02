@@ -6,6 +6,7 @@ __copyright__ = """Copyright (C) 2019 Ziff, Inc."""
 __docformat__ = "reStructuredText en"
 
 import sys
+
 if sys.version_info < (3, 7):
     raise Exception("{0} Requires Python 3.7 or higher.".format(sys.argv[0]))
 
@@ -23,15 +24,20 @@ def main(args=None):
     try:
         import ast
         from logging import config
-        with open(options.logging_conf, 'r') as file:
+
+        with open(options.logging_conf, "r") as file:
             log_dict = ast.literal_eval(file.read())
             config.dictConfig(log_dict)
         logging.getLogger().setLevel(options.verbose.upper())
     except Exception as err:
         if options.verbose == "debug":
-            traceback.print_exception(err.__class__, err, err.__traceback__, file=sys.stderr)
+            traceback.print_exception(
+                err.__class__, err, err.__traceback__, file=sys.stderr
+            )
         else:
-            print("Unhandled exception while configuring logging:", err, file=sys.stderr)
+            print(
+                "Unhandled exception while configuring logging:", err, file=sys.stderr
+            )
         sys.exit(1)
 
     try:

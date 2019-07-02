@@ -5,7 +5,7 @@ __docformat__ = "reStructuredText en"
 import logging
 
 
-class Reporter():
+class Reporter:
     """TBD."""
 
     def generated(self, record):

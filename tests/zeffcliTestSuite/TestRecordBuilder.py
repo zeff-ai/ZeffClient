@@ -1,8 +1,9 @@
 import logging
-logging = logging.getLogger('zeffclient.record_builder')
+
+logging = logging.getLogger("zeffclient.record_builder")
 
 
-class TestRecordBuilder():
+class TestRecordBuilder:
     """Zeff record builder callable object that builds Test records."""
 
     def __init__(self, *args, **argv):
@@ -12,4 +13,3 @@ class TestRecordBuilder():
         logging.info("Begin building ``Test`` record from %s", url)
         return url
         logging.info("End building ``Test`` record from %s", url)
-

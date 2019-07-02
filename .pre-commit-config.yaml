@@ -1,0 +1,22 @@
+default_language_version:
+    python: python3.7
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.2.3  # Use the ref you want to point at
+  hooks:
+  - id: check-case-conflict
+  - id: check-docstring-first
+  - id: check-added-large-files
+  - id: mixed-line-ending
+  - id: trailing-whitespace
+  - id: debug-statements
+  - id: check-yaml
+  - id: check-json
+  - id: pretty-format-json
+  #- id: no-commit-to-branch
+  #  args: [--branch, staging, --branch, master]
+- repo: https://github.com/python/black
+  rev: stable
+  hooks:
+  - id: black
+    language_version: python3.7

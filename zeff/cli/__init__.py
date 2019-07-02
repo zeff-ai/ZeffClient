@@ -62,7 +62,7 @@ References
 """
 __copyright__ = """Copyright (C) 2019 Ziff, Inc."""
 __docformat__ = "reStructuredText en"
-__version__ = '0.0.0'
+__version__ = "0.0.0"
 
 import sys
 import pathlib
@@ -77,29 +77,30 @@ def parse_commandline(args=None):
     package = pathlib.PurePosixPath(__file__).parent
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--version",
-        action="version",
-        version=f"%(prog)s {__version__}")
+        "--version", action="version", version=f"%(prog)s {__version__}"
+    )
     parser.add_argument(
-        '--verbose',
+        "--verbose",
         type=str,
-        default='warning',
-        choices=['critical', 'error', 'warning', 'info', 'debug'],
-        help='Change default logging verbosity.')
+        default="warning",
+        choices=["critical", "error", "warning", "info", "debug"],
+        help="Change default logging verbosity.",
+    )
     parser.add_argument(
-        '--logging-conf',
+        "--logging-conf",
         type=str,
         default=package.joinpath("logging_default.txt"),
-        help='Logging configuration file.')
+        help="Logging configuration file.",
+    )
 
-    subparsers = parser.add_subparsers(help='sub-command help')
+    subparsers = parser.add_subparsers(help="sub-command help")
     generate_subparser(subparsers)
     template_subparser(subparsers)
 
     options = parser.parse_args(args=args)
-    if not hasattr(options, 'func'):
+    if not hasattr(options, "func"):
         parser.print_help()
         sys.exit(1)
-    if options.verbose == 'debug':
+    if options.verbose == "debug":
         print("Working directory:", pathlib.Path.cwd(), file=sys.stderr)
     return options
