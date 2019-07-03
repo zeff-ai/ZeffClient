@@ -15,6 +15,12 @@ from .record import Record
 class UnstructuredData:
     """This represents a set of unstructured data items."""
 
+    def validate(self):
+        """Validate to ensure that it will be accepted on upload."""
+        # pylint: disable=no-member
+        for item in self.structured_data_items:
+            item.validate()
+
 
 @aggregation(UnstructuredData, contained_prop_name="unstructured_data_items")
 @dataclasses.dataclass(eq=True, frozen=True)
@@ -36,3 +42,7 @@ class UnstructuredDataItem:
     data: str
     media_type: str
     group_by: Optional[str] = None
+
+    def validate(self):
+        """Validate to ensure that it will be accepted on upload."""
+        pass

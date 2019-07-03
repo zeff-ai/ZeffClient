@@ -31,11 +31,17 @@ def test_build():
     assert sd in list(r.structured_data)
     assert len(list(r.structured_data)) == 1
 
-    sdi = StructuredDataItem("TestName", "TestValue", "TestTarget", "TestDataType")
+    sdi = StructuredDataItem(
+        "TestName",
+        1.1,
+        StructuredDataItem.Target.YES,
+        StructuredDataItem.DataType.CONTINUOUS,
+    )
     assert sdi.structured_data is None
     sdi.structured_data = sd
     assert sdi in list(sd.structured_data_items)
     assert len(list(sd.structured_data_items)) == 1
+    sdi.validate()
 
     ## UnstructuredData
 
@@ -73,3 +79,28 @@ def test_invalid_aggregation():
         sd.record = r1
 
     del sd.record
+
+
+def test_invalid_strutureddatatype():
+    """Attempt to add an invalid data type to a StructuredDataItem."""
+    with pytest.raises(TypeError):
+        sdi = StructuredDataItem(
+            "TestName",
+            "TestValue",
+            "TestTarget",
+            StructuredDataItem.DataType.CONTINUOUS,
+        )
+        sdi.validate()
+    with pytest.raises(TypeError):
+        sdi = StructuredDataItem(
+            "TestName", "TestValue", StructuredDataItem.Target.YES, "TestDataType"
+        )
+        sdi.validate()
+    with pytest.raises(ValueError):
+        sdi = StructuredDataItem(
+            "TestName",
+            "abc",
+            StructuredDataItem.Target.NO,
+            StructuredDataItem.DataType.CONTINUOUS,
+        )
+        sdi.validate()

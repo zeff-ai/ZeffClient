@@ -12,3 +12,11 @@ class Record:
         :param name: The name of the record.
         """
         self.name = name
+
+    def validate(self):
+        """Validate to ensure that it will be accepted on upload."""
+        # pylint: disable=no-member
+        for data in self.structured_data:
+            data.validate()
+        for data in self.unstructured_data:
+            data.validate()
