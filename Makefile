@@ -1,9 +1,8 @@
 .POSIX:
-.PHONY: publish validate build test lint help
+.PHONY: install publish docs examples validate build test lint help
 
-PIP = python -m pip
-PIPFLAGS = --quiet
-
+PIP           = python -m pip
+PIPFLAGS      = --quiet
 
 install:			## Install system
 	@${PIP} ${PIPFLAGS} install --upgrade pip
@@ -15,15 +14,30 @@ publish:			## Publish the library to the central PyPi repository
 	echo python setup.py sdist upload
 
 
-validate: lint test	## Validate project for CI, CD, and publish
-
-
 docs:				## Create documentation
+	@echo Update required tools
 	@${PIP} ${PIPFLAGS} install --upgrade pip
 	@${PIP} ${PIPFLAGS} install --upgrade -e ".[docs]"
-	python -c 'import zeff; print(zeff.__doc__)' | \
+	@echo Update UML diagrams
+	@plantuml docs/source/**/*.uml
+	@echo Update man pages
+	@mkdir -p docs/source/man/man1
+	@python -c 'import zeff; print(zeff.__doc__)' | \
 		sed '1,3d' | \
-		rst2man.py > spam.man
+		rst2man.py > docs/source/man/man1/zeff.1
+	@echo Create documentation
+	@$(MAKE) -C docs docs
+
+
+examples:			## Setup environement for doing examples
+	@${PIP} ${PIPFLAGS} install --upgrade pip
+	@${PIP} ${PIPFLAGS} install --upgrade -e .
+	@${PIP} ${PIPFLAGS} install --upgrade -e ".[examples]"
+	python setup.py build install
+
+
+validate: lint test	## Validate project for CI, CD, and publish
+
 
 
 clean:				## Clean generated files
@@ -47,12 +61,14 @@ clean_cache:		## Clean caches
 
 
 build:				## Build into ``./build`` directory
+	@echo Updating build tools
 	@${PIP} ${PIPFLAGS} install --upgrade pip
 	@${PIP} ${PIPFLAGS} install --upgrade -e .
 	python setup.py build
 
 
 test:				## Run test suite
+	@echo Updating test tools
 	@${PIP} ${PIPFLAGS} install --upgrade pip
 	@${PIP} ${PIPFLAGS} install --upgrade -e ".[tests]"
 	python -m pytest --cov=zeff && \
@@ -61,12 +77,13 @@ test:				## Run test suite
 
 lint:				## Check source for conformance
 	@echo Checking source conformance
+	@echo Updating lint tools
 	@${PIP} ${PIPFLAGS} install --upgrade pip
 	@${PIP} ${PIPFLAGS} install --upgrade -e ".[lint]"
-	pylint -f parseable -r n zeff && \
-		pycodestyle zeff && \
-		pydocstyle zeff && \
-		mypy zeff
+	pylint -f parseable -r n zeff
+	pycodestyle zeff
+	pydocstyle zeff
+	mypy zeff
 
 
 format:				## Format source code to standard

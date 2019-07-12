@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 """
-Zeff is a commandline tool for working with Zeff Cloud API.
+Zeff commandline tool man page.
 
 ####
 Zeff
@@ -28,14 +28,32 @@ Description
 Options
 =======
 
-    ``-v --verbose {{critical,error,warning,info,debug}}``
+    ``-h --help``
+        Display help.
+
+    ``--version``
+        Show version for zeff.
+
+    ``--verbose {{critical,error,warning,info,debug}}``
         Change the logging level of the handler named ``console`` from
         the logging configuration file. This has no effect on any other
         handler or logger.
 
-    ``--logging-conf``
+    ``--logging-conf path``
         Custom logging configuration file using Python logging
         dictionary configuration.
+
+
+Sub-commands
+============
+
+    ``run``
+        Build, validate, and upload records to Zeff Cloud from generated
+        strings. See ``zeff run --help`` for arguments.
+
+    ``template``
+        Create a record builder template.
+
 
 
 Exit Status
@@ -48,17 +66,6 @@ The following exit values shall be returned:
 >0
     An error occurred (Standard errors from <errno.h>).
 
-**********
-References
-**********
-
-.. [RFC2119] RFC2119, Key words for use in RFCs to Indicate Requirement
-    Levels, S. Bradner, March 1997.
-
-.. [RFC3986] RFC3986, Uniform Resource Identifier (URI): Generic Syntax,
-    T. Berners-Lee, R. Fielding, L. Masinter, January 2005.
-
-.. [RFC5424] RFC5424, The Syslog Protocol, R. Gerhards, March 2009.
 """
 __copyright__ = """Copyright (C) 2019 Ziff, Inc."""
 __docformat__ = "reStructuredText en"
@@ -69,7 +76,7 @@ import pathlib
 import argparse
 
 from .template import *
-from .generate import *
+from .run import *
 
 
 def parse_commandline(args=None):
@@ -94,7 +101,7 @@ def parse_commandline(args=None):
     )
 
     subparsers = parser.add_subparsers(help="sub-command help")
-    generate_subparser(subparsers)
+    run_subparser(subparsers)
     template_subparser(subparsers)
 
     options = parser.parse_args(args=args)
