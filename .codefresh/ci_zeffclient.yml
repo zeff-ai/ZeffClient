@@ -6,7 +6,7 @@ stages:
   - "integration"
   - "push"
 steps:
-  CloneZeffClient:
+  main_clone:
     type: "git-clone"
     stage: "clone"
     description: "Cloning main repository..."
@@ -18,12 +18,10 @@ steps:
     title: "Building ZeffClient Docker Image"
     image_name: "ziff/ZeffClient"
     tag: "${{CF_BRANCH_TAG_NORMALIZED}}"
-    working_directory: ${{CloneZeffClient}}
-    dockerfile: .codefresh/Dockerfile          
+    dockerfile: .codefresh/Dockerfile
   UnitTests:
     stage: "test"
     title: Running Unit tests
     image: ${{ZeffClientImage}}
-    working_directory: ${{CloneZeffClient}}
     commands:
       - make validate

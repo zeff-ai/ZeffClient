@@ -4,30 +4,43 @@ import sys
 import os
 import io
 import types
+from . import chdir
 
-from zeff.cli.run import run
+import zeff.cli
+from zeff.cli.upload import upload
+from zeff.cli.train import train
+from zeff.cli.predict import predict
 
 
-def test_generate():
+def test_upload_generate(chdir):
+    args = [
+        "upload",
+        "--no-train",
+        "--dry-run=validate",
+        "tests.zeffcliTestSuite.builder.HousePriceRecordBuilder",
+    ]
+    options = zeff.cli.parse_commandline(args)
+    upload(options)
+
+    # Setup mock server to recieve upload
+
+
+def test_train_generate():
+    # TODO: this needs to watch a mock ZeffCloud object
     dirpath = os.path.dirname(__file__)
-    options = types.SimpleNamespace(
-        record_url_generator="zeff.recordgenerator.entry_url_generator",
-        url=f"file://{dirpath}",
-        **{
-            "record-builder": "tests.zeffcliTestSuite.TestRecordBuilder.TestRecordBuilder"
-        },
-        dry_run="configuration",
-    )
+    options = types.SimpleNamespace(action="start")
     strio = io.StringIO()
     sys.stdout = strio
-    run(options)
-    sys.stdout = sys.__stdout__
+    train(options)
 
-    urls = [url.strip() for url in strio.getvalue().split("\n") if url]
-    names = [os.path.basename(url) for url in urls]
-    names.sort()
 
-    files = os.listdir(dirpath)
-    files.sort()
+def test_predict_generate(chdir):
+    args = [
+        "predict",
+        "--dry-run=validate",
+        "tests.zeffcliTestSuite.builder.HousePriceRecordBuilder",
+    ]
+    options = zeff.cli.parse_commandline(args)
+    upload(options)
 
-    assert names == files
+    # Setup mock server to recieve predict

@@ -12,4 +12,4 @@ import os
 
 from setuptools import setup, find_packages
 
-setup()
+setup(use_scm_version=True)

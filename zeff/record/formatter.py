@@ -73,15 +73,15 @@ def format_record_restructuredtext(
     def print_unstructured_item_table(unstructured_data):
         columns = compute_column_widths(
             unstructured_data.unstructured_data_items,
-            ["media_type", "group_by", "data", "accessible"],
-            [16, 8, 8, 16],
+            ["file_type", "group_by", "data", "accessible"],
+            [8, 8, 8, 16],
         )
         print_table_header(columns)
 
         data_items = list(unstructured_data.unstructured_data_items)
         data_items.sort(key=unstructured_sort)
         for udi in data_items:
-            data = [udi.media_type, udi.group_by, udi.data, udi.accessible]
+            data = [udi.file_type, udi.group_by, udi.data, udi.accessible]
             print_table_entry(data, columns)
 
     def compute_column_widths(items, names, mins):
@@ -101,14 +101,12 @@ def format_record_restructuredtext(
     print(record)
     print("=" * len(str(record)))
 
-    for structured_data in record.structured_data:
-        print()
-        print("Structured Data")
-        print("===============")
-        print_structured_item_table(structured_data)
+    print()
+    print("Structured Data")
+    print("===============")
+    print_structured_item_table(record.structured_data)
 
-    for unstructured_data in record.unstructured_data:
-        print(file=out)
-        print("Unstructured Data", file=out)
-        print("=================", file=out)
-        print_unstructured_item_table(unstructured_data)
+    print(file=out)
+    print("Unstructured Data", file=out)
+    print("=================", file=out)
+    print_unstructured_item_table(record.unstructured_data)

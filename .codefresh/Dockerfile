@@ -7,8 +7,7 @@ WORKDIR /usr/local/src/zeffclient
 COPY . /usr/local/src/zeffclient
 
 RUN make install && \
- rm -f "/usr/local/lib/python3.7/site-packages/ZeffClient.egg-link" && \
- rm -rf "/usr/local/src/zeffclient"
+ rm -f "/usr/local/lib/python3.7/site-packages/ZeffClient.egg-link"
 
 CMD [ "bash" ]
 

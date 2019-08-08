@@ -2,14 +2,15 @@
 .DS_Store
 
 # CI/CD
-.codefresh
+# .codefresh
 
 # Docker
-.dockerignore
+# .dockerignore
 
 # git
-.git
-.gitignore
+# .git
+# .gitignore
+# .pre-commit-config.yaml
 
 # Python Compiled
 **/__pycache__
@@ -30,36 +31,26 @@ tmp/
 pip-wheel-metadata
 
 # Unit test / coverage reports
-.pytest_cache/
 .coverage/
-coverage_html_report/
-.mypy_cache/
 .hypothesis/
+.mypy_cache/
+.pytest_cache/
+coverage_html_report/
 
 # Environments
 .venv/
 venv/
 VENV/
 
-
-### Vim template
-# Swap
+# Vim
 [._]*.s[a-v][a-z]
 [._]*.sw[a-p]
 [._]s[a-rt-v][a-z]
 [._]ss[a-gi-z]
 [._]sw[a-p]
-
-# Session
 Session.vim
-
-# Temporary
 .netrwhist
 *~
-
-# Auto-generated tag files
 tags
-
-# Persistent undo
 [._]*.un~
 

@@ -13,23 +13,36 @@ Environment
 Loggers
 =======
 
-- ``zeffclient.record_builder``
+- ``zeffclient.record.builder``
     Logger that should be used by record builder's, including those
     made by users of ZeffClient.
 
-- ``zeffclient.record_generator``
+- ``zeffclient.record.generator``
     Logger used by the record generation subsystem.
 
-- ``zeffclient.validator``
+- ``zeffclient.record.validator``
     Logger used by the record validation subsystem.
 
-- ``zeffclient.submitter``
-    Logger used by the record submission subsystem.
-
+- ``zeffclient.record.uploader``
+    Logger used by the record upload subsystem.
 
 """
 __copyright__ = """Copyright (C) 2019 Ziff, Inc."""
 __docformat__ = "reStructuredText en"
-__version__ = "0.0.0"
 
-from .runner import runner
+import pkg_resources
+
+try:
+    __version__ = pkg_resources.get_distribution("ZeffClient").version
+except pkg_resources.DistributionNotFound as err:
+    __version__ = "0.0.0"
+
+
+from .pipeline import Counter, record_builder_generator, validation_generator
+from .pipeline_observation import *
+
+# pylint: disable=duplicate-code
+
+from .uploader import Uploader
+from .trainer import Trainer
+from .predictor import Predictor
