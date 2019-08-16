@@ -4,10 +4,10 @@ zeff.cloud package
 Submodules
 ----------
 
-zeff.cloud.datasets module
+zeff.cloud.dataset module
 --------------------------
 
-.. automodule:: zeff.cloud.datasets
+.. automodule:: zeff.cloud.dataset
    :members:
    :undoc-members:
    :show-inheritance:
@@ -20,10 +20,10 @@ zeff.cloud.encoder module
    :undoc-members:
    :show-inheritance:
 
-zeff.cloud.records module
+zeff.cloud.record module
 -------------------------
 
-.. automodule:: zeff.cloud.records
+.. automodule:: zeff.cloud.record
    :members:
    :undoc-members:
    :show-inheritance:

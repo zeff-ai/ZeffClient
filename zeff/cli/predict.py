@@ -2,6 +2,8 @@
 __docformat__ = "reStructuredText en"
 __all__ = ["predict_subparser"]
 
+import sys
+from pathlib import Path
 import logging
 import zeff
 import zeff.record
@@ -14,7 +16,9 @@ def predict_subparser(subparsers, config):
     :param subparsers: The subparser to add the predict sub-command.
     """
 
-    parser = subparsers.add_parser("predict")
+    parser = subparsers.add_parser(
+        "predict", help="""Upload record to infer a prediction."""
+    )
     parser.add_argument(
         "--model-version",
         dest="model-version",
@@ -27,6 +31,7 @@ def predict_subparser(subparsers, config):
 
 def predict(options):
     """Generate a set of records from options."""
+    sys.path.append(str(Path.cwd()))
     _, records = build_pipeline(options, zeff.Predictor)
     for record in records:
         logging.debug(record)

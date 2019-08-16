@@ -18,13 +18,6 @@ docs:				## Create documentation
 	@echo Update required tools
 	@${PIP} ${PIPFLAGS} install --upgrade pip
 	@${PIP} ${PIPFLAGS} install --upgrade -e ".[docs]"
-	@echo Update UML diagrams
-	@plantuml docs/source/**/*.uml
-	@echo Update man pages
-	@mkdir -p docs/source/man/man1
-	@python -c 'import zeff; print(zeff.__doc__)' | \
-		sed '1,3d' | \
-		rst2man.py > docs/source/man/man1/zeff.1
 	@echo Create documentation
 	@$(MAKE) -C docs docs
 
@@ -39,7 +32,6 @@ examples:			## Setup environement for doing examples
 validate: lint test	## Validate project for CI, CD, and publish
 
 
-
 clean:				## Clean generated files
 	@rm -rf build
 	@rm -rf dist
@@ -50,6 +42,7 @@ clean:				## Clean generated files
 	@rm -rf *.egg-info
 	@rm -rf pip-wheel-metadata
 	@find zeff -name '__pycache__' -exec rm -rf {} \; -prune
+	@$(MAKE) -C docs clean
 
 
 clean_cache:		## Clean caches
@@ -92,6 +85,15 @@ format:				## Format source code to standard
 	find zeff -name '*.py' -exec black -q {} \;
 	find tests -name '*.py' -exec black -q {} \;
 
+
+updatedev:			## Update / init all packages for development environment
+	@echo Setup virtual environment
+	@${PIP} ${PIPFLAGS} install --upgrade pip
+	@${PIP} ${PIPFLAGS} install --upgrade -e .
+	@${PIP} ${PIPFLAGS} install --upgrade -e ".[dev]"
+	@${PIP} ${PIPFLAGS} install --upgrade -e ".[tests]"
+	@${PIP} ${PIPFLAGS} install --upgrade -e ".[lint]"
+	@${PIP} ${PIPFLAGS} install --upgrade -e ".[docs]"
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \

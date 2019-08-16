@@ -13,7 +13,7 @@ help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 
-docs: apidoc
+docs: uml example_archive apidoc
 	@$(SPHINXBUILD) -M html $(SPHINXOPTS) "$(SOURCEDIR)" "$(BUILDDIR)"
 
 
@@ -30,7 +30,29 @@ apidoc:
 	sphinx-apidoc -o $(SOURCEDIR)/ ../zeff
 
 
-.PHONY: help docs apidoc Makefile
+uml:
+	@echo Update UML diagrams
+	@plantuml source/**/*.uml
+
+
+man:
+	@echo Update man pages
+	@mkdir -p source/man/man1
+	@python -c 'import zeff; print(zeff.__doc__)' | \
+		sed '1,3d' | \
+		rst2man.py > source/man/man1/zeff.1
+
+
+example_archive:
+	@echo Create example archives
+	@$(MAKE) -C source/examples archive
+
+
+clean:
+	@$(MAKE) -C source/examples clean
+
+
+.PHONY: help docs apidoc uml man example_archive clean Makefile
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
