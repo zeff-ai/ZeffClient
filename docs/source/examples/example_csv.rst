@@ -21,7 +21,7 @@ Steps
 
    1. Download: :download:`zeffclient_example_csv.tar.bz2 <zeffclient_example_csv.tar.bz2>`
 
-   2. Decompress: ``tar -xjf zeffclient_example.csv.tar.bz2``
+   2. Decompress: ``tar -xjf zeffclient_example_csv.tar.bz2``
 
    3. Change directory: ``cd zeffclient_example_csv``
 
