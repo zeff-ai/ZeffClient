@@ -1,6 +1,19 @@
 #!/bin/sh
 
-python3 -c 'import sys; sys.exit(0) if sys.version_info >= (3, 7) else sys.exit(1)'
+for pyname in 'python3.8' 'python3.7' 'python3' 'python'
+do
+	PYTHON=`which ${pyname}`
+	if [ $? -eq 0 ]; then
+		break
+	fi
+done
+
+if [ ! -x "${PYTHON}" ]; then
+	echo No python interpreter found in current PATH. >&2
+	exit 1
+fi
+
+${PYTHON} -c 'import sys; sys.exit(0) if sys.version_info >= (3, 7) else sys.exit(1)'
 if [ $? -eq 1 ]; then
 	echo Python 3.7 or greater is required to use ZeffClient. >&2
 	exit 1
@@ -10,10 +23,10 @@ echo
 echo ==========================================
 echo Setup virtual environment and install zeff
 echo ==========================================
-python3 -m venv .venv
+${PYTHON} -m venv .venv
 source .venv/bin/activate
-pip install --upgrade pip
-pip install git+ssh://git@github.com/ziff/ZeffClient.git@0.0.2
+python -m pip install --upgrade pip
+python -m pip install git+ssh://git@github.com/ziff/ZeffClient.git@0.0.2
 
 echo
 echo ==========================================
