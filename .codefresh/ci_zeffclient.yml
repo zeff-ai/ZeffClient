@@ -1,27 +1,26 @@
 version: "1.0"
 stages:
-  - "clone"
-  - "build"
-  - "test"
-  - "integration"
-  - "push"
+  - clone
+  - build
+  - test
+  - integration
 steps:
   main_clone:
-    type: "git-clone"
-    stage: "clone"
+    type: git-clone
+    stage: clone
     description: "Cloning main repository..."
     repo: "ziff/ZeffClient"
     revision: "${{CF_BRANCH}}"
   ZeffClientImage:
-    type: "build"
-    stage: "build"
+    type: build
+    stage: build
     title: "Building ZeffClient Docker Image"
     image_name: "ziff/ZeffClient"
     tag: "${{CF_BRANCH_TAG_NORMALIZED}}"
     dockerfile: .codefresh/Dockerfile
   UnitTests:
-    stage: "test"
-    title: Running Unit tests
+    stage: test
+    title: "Running Unit tests"
     image: ${{ZeffClientImage}}
     commands:
       - make validate

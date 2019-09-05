@@ -1,19 +1,28 @@
 .POSIX:
 .PHONY: install publish docs examples validate build test lint help
 
+SETUP         = python -m setup
+SETUPFLAGS    =
 PIP           = python -m pip
 PIPFLAGS      = --quiet
 
 install:			## Install system
 	@${PIP} ${PIPFLAGS} install --upgrade pip
 	@${PIP} ${PIPFLAGS} install --upgrade -e .
-	python -m setup install
+	${SETUP} ${SETUPFLAGS} install
 
 
+# Publish requires a username & password for twine to upload to PyPI
+# ``export TWINE_USERNAME=<username>``
+# ``export TWINE_PASSWORD=<password>``
+#
+# For automated upload with API token the following is required:
+# ``export TWINE_USERNAME=__token__``
+# ``export TWINE_PASSWORD=pypi-<token_value>``
 publish: clean		## Publish the library to the central PyPi repository
 	@${PIP} ${PIPFLAGS} install --upgrade pip setuptools wheel twine
 	@${PIP} ${PIPFLAGS} install --upgrade -e ".[docs]"
-	python -m setup sdist bdist_wheel
+	${SETUP} ${SETUPFLAGS} sdist bdist_wheel
 	python -m twine check dist/*
 	python -m twine upload --verbose dist/*
 	@$(MAKE) -C docs publish
@@ -31,7 +40,7 @@ examples:			## Setup environement for doing examples
 	@${PIP} ${PIPFLAGS} install --upgrade pip
 	@${PIP} ${PIPFLAGS} install --upgrade -e .
 	@${PIP} ${PIPFLAGS} install --upgrade -e ".[examples]"
-	python setup.py build install
+	${SETUP} ${SETUPFLAGS} build install
 
 
 validate: lint test	## Validate project for CI, CD, and publish
@@ -62,7 +71,7 @@ build:				## Build into ``./build`` directory
 	@echo Updating build tools
 	@${PIP} ${PIPFLAGS} install --upgrade pip
 	@${PIP} ${PIPFLAGS} install --upgrade -e .
-	python setup.py build
+	${SETUP} ${SETUPFLAGS} build
 
 
 test:				## Run test suite
