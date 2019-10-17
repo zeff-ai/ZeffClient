@@ -78,7 +78,7 @@ class Trainer:
     def status(self):
         """Print current status to stream."""
         from tqdm import tqdm
-        import time
+        from time import sleep
 
         def tstamp():
             return f"{tstate.updated_timestamp.strftime('%c')}"
@@ -97,7 +97,7 @@ class Trainer:
             while tstate.status is not TrainingStatus.complete:
                 pbar.set_description(desc_str())
                 pbar.update(tstate.progress)
-                time.sleep(1.0)
+                sleep(1.0)
                 tstate = self.dataset.training_status
             pbar.close()
         else:

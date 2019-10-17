@@ -16,11 +16,24 @@ steps:
     stage: build
     title: "Building ZeffClient Docker Image"
     image_name: "ziff/ZeffClient"
-    tag: "${{CF_BRANCH_TAG_NORMALIZED}}"
+    tag: "${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}"
     dockerfile: .codefresh/Dockerfile
   UnitTests:
     stage: test
-    title: "Running Unit tests"
-    image: ${{ZeffClientImage}}
-    commands:
-      - make validate
+    type: composition
+    title: "Running unit tests"
+    #image: "${{ZeffClientImage}}"
+    #commands:
+    #    - make validate
+    # The composition exists to work around a freestyle bug
+    composition:
+        version: "3"
+        services:
+            alpine:
+              image: alpine
+    composition_candidates:
+        test:
+          image: ${{ZeffClientImage}}
+          links:
+              - alpine
+          command: "make validate"

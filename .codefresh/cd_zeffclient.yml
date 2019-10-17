@@ -4,8 +4,8 @@ stages:
   - deploy
 steps:
   main_clone:
-    type: git-clone
     stage: clone
+    type: git-clone
     description: "Cloning main repository..."
     repo: "ziff/ZeffClient"
     revision: "${{CF_BRANCH}}"
@@ -24,7 +24,7 @@ steps:
   Publish:
     stage: deploy
     title: "Publish source, binary, and documentation"
-    image: ${{ZeffClientImage}}
+    image: "ziff/ZeffClient"
     commands:
       - make publish
     when:

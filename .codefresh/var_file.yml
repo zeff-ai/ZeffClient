@@ -1,7 +1,8 @@
 - CF_REPO_NAME: ZeffClient
   CF_REPO_OWNER: ziff
-  CF_BRANCH: feature/cicd
-  CF_BRANCH_TAG_NORMALIZED: featurecicd
+  CF_BRANCH: master
+  CF_BRANCH_TAG_NORMALIZED: master
+  CF_SHORT_REVISION: 4cc3ff3
   CF_RELEASE_TAG: 0.0.0
   # This URL is to prevent publishing to live PyPI
   TWINE_REPOSITORY_URL: https://test.pypi.org/legacy/

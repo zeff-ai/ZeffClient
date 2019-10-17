@@ -14,6 +14,8 @@ if sys.version_info < (3, 7):
 def main(args=None):
     """Configure system from command line arguments and configuration files."""
     # pylint: disable=broad-except
+    # pylint: disable=import-outside-toplevel
+
     import traceback
     import errno
     import logging

@@ -19,6 +19,23 @@ Generally ``docker pull codefresh/engine:master`` will all that is
 required.
 
 
+Context
+-------
+
+A codefresh context is required to run a pipeline. Check to see if
+`zeffclient` is available with
+
+::
+      
+      codefresh get context zeffclient
+
+and create if it does not exist with
+
+::
+
+      codefresh create context yaml zeffclient
+
+
 ci_zeffclient
 -------------
 
@@ -32,6 +49,6 @@ for after run analysis.
         --local \
         --local-volume \
         --yaml=.codefresh/ci_zeffclient.yml \
-        --context=context \
+        --context=zeffclient \
         --var-file=.codefresh/var_file.yml \
         -b master
