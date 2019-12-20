@@ -4,10 +4,10 @@ __all__ = ["Counter", "record_builder_generator", "validation_generator"]
 
 import logging
 
-LOGGER_BUILDER = logging.getLogger("zeffclient.record.builder")
 LOGGER_GENERATOR = logging.getLogger("zeffclient.record.generator")
+LOGGER_BUILDER = logging.getLogger("zeffclient.record.builder")
 LOGGER_VALIDATOR = logging.getLogger("zeffclient.record.validator")
-LOGGER_SUBMITTER = logging.getLogger("zeffclient.record.submitter")
+LOGGER_UPLOADER = logging.getLogger("zeffclient.record.uploader")
 
 
 class Counter:
@@ -29,8 +29,11 @@ class Counter:
         return ret
 
 
-def record_builder_generator(upstream, builder):
+def record_builder_generator(model, upstream, builder):
     """Build and yield records from a configuration upstream.
+
+    :param model: If true then all records will be allowed, but if
+        false then records not used for training will be filtered.
 
     :param upstream: The object that will generate configuration
        strings used to build a record.
@@ -39,27 +42,28 @@ def record_builder_generator(upstream, builder):
        string and return a record.
     """
     for config in upstream:
-        record = builder(config)
+        record = builder(model, config)
+        if record is None:
+            continue
         yield record
 
 
-def validation_generator(upstream):
+def validation_generator(upstream, validator):
     """Validate records from generator and yield valid records.
 
     :param upstream: A generator that will yield record objects that
         may be validated.
 
+    :param validator: A callable object that will take a
+        single parameter that is the record to be validated.
+
     :return: Records that only have validation warnings.
     """
     for record in upstream:
         try:
-            LOGGER_VALIDATOR.info("Begin validation record %s", record.name)
-            record.validate()
-            LOGGER_VALIDATOR.info("End validation record %s", record.name)
+            validator(record)
             yield record
         except TypeError as err:
-            LOGGER_VALIDATOR.exception(err, record=record)
-            continue
+            LOGGER_VALIDATOR.error(err)
         except ValueError as err:
-            LOGGER_VALIDATOR.exception(err, record=record)
-            continue
+            LOGGER_VALIDATOR.error(err)

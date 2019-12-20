@@ -3,6 +3,7 @@
 __version__ = "0.0"
 
 import logging
+import typing
 import sqlite3
 from zeff.record import *
 
@@ -21,7 +22,7 @@ class HousePriceRecordBuilder:
         self.conn = sqlite3.connect("db.sqlite3")
         self.conn.row_factory = sqlite3.Row
 
-    def __call__(self, config: str) -> Record:
+    def __call__(self, model: bool, config: str) -> typing.Optional[Record]:
         LOGGER.info("Begin building ``HousePrice`` record from %s", config)
         record = Record(name=config)
         self.add_structured_data(record, config)
@@ -44,9 +45,9 @@ class HousePriceRecordBuilder:
 
             # Is the column a continuous or category datatype
             if isinstance(value, (int, float)):
-                dtype = StructuredData.DataType.CONTINUOUS
+                dtype = DataType.CONTINUOUS
             else:
-                dtype = StructuredData.DataType.CATEGORY
+                dtype = DataType.CATEGORY
 
             # Create the structured data item and add it to the
             # structured data object
@@ -65,7 +66,7 @@ class HousePriceRecordBuilder:
         # unstructured data, and add that to the record.
         for row in cursor.execute(sql).fetchall():
             url = row["url"]
-            file_type = UnstructuredData.FileType.IMAGE
+            file_type = FileType.IMAGE
             group_by = row["image_type"]
             ud = UnstructuredData(url, file_type, group_by=group_by)
             ud.record = record
