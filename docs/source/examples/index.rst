@@ -16,10 +16,10 @@ to build a record for training and inference in Zeff Cloud API.
 
 The above links will have details on how to build a record from a
 relational database (`rdbms`), a CSV file (`csv`), a YAML file
-(`yaml`), or to create a new clean project from sractch.
+(`yaml`), or to create a new clean project from scratch.
 
 This readme applies to all examples and will explain the overall
-process for buildling a record and how a record relates to other
+process for building a record and how a record relates to other
 objects.
 
 
@@ -63,7 +63,7 @@ control record building so multiple records may be built in parallel
 to allow improved throughput to Zeff Cloud.
 
 The configuration strings may contain anything you choose, but must
-be acceptable to the assocaited record builder when it is called.
+be acceptable to the associated record builder when it is called.
 
 There are generators in :doc:`../zeff.recordgenerator` that may be
 used for common types of configuration strings such as URLs. For
