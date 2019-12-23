@@ -122,7 +122,7 @@ class PipelineHandler(logging.Handler):
     """Logging handler for pipeline observation.
 
     When an observer is added to a phase then an object of this type
-    will be added to the assocaited logger in order to receive
+    will be added to the associated logger in order to receive
     log records from which events will be created.
 
     This allows the normall logging system to be used in an observable
