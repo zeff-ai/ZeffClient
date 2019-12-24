@@ -66,13 +66,13 @@ class ZeffCloudResourceMap(dict):
             info = yaml.load(yfile, Loader=yaml.SafeLoader)
         return info
 
-    def __init__(self, info, root="https://api.ziff.ai/", **argv):
+    def __init__(self, info, root="https://api.zeff.ai/", **argv):
         """Create mapping of tag URL to ZeffCloudResource objects.
 
         :param info: Mapping information.
 
         :param root: This is the root of the Zeff Cloud REST server. The
-            default is the public location ``https://api.ziff.ai/``.
+            default is the public location ``https://api.zeff.ai/``.
 
         :param **: Other arguments where the key the name used in a
             variable.
