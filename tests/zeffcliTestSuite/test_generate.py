@@ -7,7 +7,6 @@ import types
 import pathlib
 from . import chdir
 import pytest
-
 import zeff.cli
 from zeff.cli.upload import upload
 from zeff.cli.train import train

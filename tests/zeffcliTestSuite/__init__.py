@@ -5,18 +5,38 @@
 __copyright__ = """Copyright (C) 2019 Ziff, Inc."""
 __docformat__ = "reStructuredText en"
 
+import sys
 import os
+import pathlib
 import pytest
 
 
 @pytest.fixture(scope="function")
 def chdir(request):
-    oldcwd = os.getcwd()
-    newcwd = os.path.dirname(request.fspath)
-    os.chdir(newcwd)
+    """Reset CWD directory:
+
+        1. At start of test the CWD will be in the directory that
+           contains the test file.
+
+        2. After test completes the CWD will be reset to the CWD
+           before the test started.
+    """
+    oldcwd = pathlib.Path.cwd()
+    request.fspath.dirpath().chdir()
 
     def reset():
         os.chdir(oldcwd)
+
+    request.addfinalizer(reset)
+
+
+@pytest.fixture(scope="function")
+def sys_path(request):
+    """Reset sys.path."""
+    oldpath = sys.path
+
+    def reset():
+        sys.path = oldpath
 
     request.addfinalizer(reset)
 

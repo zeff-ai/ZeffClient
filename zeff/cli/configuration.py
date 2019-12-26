@@ -129,7 +129,10 @@ class Records:
         """Set options in the ConfigParser section."""
 
         def path(obj):
-            return f"{obj.__module__}.{obj.__name__}"
+            if isinstance(obj, str):
+                return obj
+            else:
+                return f"{obj.__module__}.{obj.__name__}"
 
         section["datasetid"] = self.datasetid
         section["records_config_generator"] = path(self.records_config_generator)
@@ -146,26 +149,28 @@ class Configuration:
     This loads from the ``zeff.conf`` configuration file and converts to
     typed objects for ease of use.
 
-    :property server_url: The Zeff Cloud REST server URL.
+    :property server.server_url: The Zeff Cloud REST server URL.
 
-    :property org_id: Organization ID for use in authentication.
+    :property server.org_id: Organization ID for use in authentication.
 
-    :property user_id: User ID  for use in authentication.
+    :property server.user_id: User ID  for use in authentication.
 
-    :property datasetid: Dataset that defines where records should be uplaoded.
+    :property records.datasetid: Dataset that defines where records
+        should be uplaoded.
 
-    :property records_config_generator: Class to construct the generator
-        for building configuration values to be sent to the record builder.
+    :property records.records_config_generator: Class to construct
+        the generator for building configuration values to be sent
+        to the record builder.
 
-    :property records_config_arg: Single argument to be given to the
+    :property records.records_config_arg: Single argument to be given to the
         ``records_config_generator`` when created.
 
-    :property record_builder: Class to construct the record builder.
+    :property records.record_builder: Class to construct the record builder.
 
-    :property record_builder_arg: Single argument to be given to the
+    :property records.record_builder_arg: Single argument to be given to the
         ``record_builder`` when created.
 
-    :property record_validator: Class to construct a record validator.
+    :property records.record_validator: Class to construct a record validator.
     """
 
     server: Server

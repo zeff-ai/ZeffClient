@@ -12,8 +12,6 @@ from zeff.zeffdatasettype import ZeffDatasetType
 from zeff.zeffcloud import ZeffCloudResourceMap
 from zeff.cloud import Dataset, ZeffCloudException
 
-CONF_PATH = Path.cwd() / "zeff.conf"
-
 
 def init_subparser(subparsers):
     """Add the ``init`` sub-system as a subparser for argparse.
@@ -68,14 +66,17 @@ class Project:
         self.record_validator = self.options.dataset_type.validator
 
     def __call__(self):
+        def conf_path():
+            return Path.cwd() / "zeff.conf"
+
         self.create_zeff_conf()
         self.create_generator()
         self.create_builder()
-        with open(CONF_PATH, "wt") as fout:
+        self.config.validate()
+        with open(conf_path(), "wt") as fout:
             self.config.write(fout)
-
         self.create_dataset()
-        with open(CONF_PATH, "wt") as fout:
+        with open(conf_path(), "wt") as fout:
             self.config.write(fout)
 
     def create_zeff_conf(self):
@@ -140,9 +141,6 @@ class Project:
             "Record validator python name",
             use_variables=True,
         )
-
-        self.config.validate()
-        print()
 
     def create_dataset(self):
         """Create dataset on server and update config file."""
