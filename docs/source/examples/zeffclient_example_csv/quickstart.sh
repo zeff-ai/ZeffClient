@@ -26,7 +26,7 @@ echo ==========================================
 ${PYTHON} -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install git+ssh://git@github.com/ziff/ZeffClient.git@0.0.2
+python -m pip install git+ssh://git@github.com/ziff/ZeffClient.git
 if [ $? -ne 0 ]; then
 	exit $?
 fi
@@ -38,7 +38,7 @@ echo When asked enter your org_id and user_id
 echo All other questions accept default by
 echo hitting enter
 echo ==========================================
-zeff init
+zeff init generic
 if [ $? -ne 0 ]; then
 	exit $?
 fi
@@ -47,3 +47,10 @@ echo ==========================================
 echo Start the upload of some records
 echo ==========================================
 zeff upload --no-train
+
+echo ==========================================
+echo To continue working with zeff CLI tool
+echo ==========================================
+echo
+echo 1. Activate the virtual environment: \`source .venv/bin/activate\`
+echo 2. Test zeff CLI tool: \`zeff --help\`

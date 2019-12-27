@@ -78,8 +78,7 @@ test:				## Run test suite
 	@echo Updating test tools
 	@${PIP} ${PIPFLAGS} install --upgrade pip
 	@${PIP} ${PIPFLAGS} install --upgrade -e ".[tests]"
-	python -m pytest --cov=zeff && \
-		coverage html
+	python -m pytest --cov=zeff && coverage html
 
 
 lint:				## Check source for conformance
