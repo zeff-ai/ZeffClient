@@ -74,6 +74,7 @@ Before creating any commit:
    1. ``make validate``
 
 
+
 License
 =======
 

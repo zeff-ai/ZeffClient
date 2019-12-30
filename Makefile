@@ -1,11 +1,11 @@
 .POSIX:
-.PHONY: install publish docs examples validate build test lint help
 
 SETUP         = python -m setup
 SETUPFLAGS    =
 PIP           = python -m pip
 PIPFLAGS      = --quiet
 
+.PHONY: install
 install:			## Install system
 	@${PIP} ${PIPFLAGS} install --upgrade pip
 	@${PIP} ${PIPFLAGS} install --upgrade -e .
@@ -19,6 +19,7 @@ install:			## Install system
 # For automated upload with API token the following is required:
 # ``export TWINE_USERNAME=__token__``
 # ``export TWINE_PASSWORD=pypi-<token_value>``
+.PHONY: publish
 publish: clean		## Publish the library to the central PyPi repository
 	@${PIP} ${PIPFLAGS} install --upgrade pip setuptools wheel twine
 	@${PIP} ${PIPFLAGS} install --upgrade -e ".[docs]"
@@ -28,6 +29,7 @@ publish: clean		## Publish the library to the central PyPi repository
 	@$(MAKE) -C docs publish
 
 
+.PHONY: docs
 docs:				## Create documentation
 	@echo Update documentation tools
 	@${PIP} ${PIPFLAGS} install --upgrade pip
@@ -36,6 +38,7 @@ docs:				## Create documentation
 	@$(MAKE) -C docs docs
 
 
+.PHONY: examples
 examples:			## Setup environement for doing examples
 	@${PIP} ${PIPFLAGS} install --upgrade pip
 	@${PIP} ${PIPFLAGS} install --upgrade -e .
@@ -43,6 +46,7 @@ examples:			## Setup environement for doing examples
 	${SETUP} ${SETUPFLAGS} build install
 
 
+.PHONY: validate
 validate: lint test	## Validate project for CI, CD, and publish
 
 
@@ -67,6 +71,7 @@ clean_cache:		## Clean caches
 	@rm -rf .hypothesis
 
 
+.PHONY: build
 build:				## Build into ``./build`` directory
 	@echo Updating build tools
 	@${PIP} ${PIPFLAGS} install --upgrade pip
@@ -74,6 +79,7 @@ build:				## Build into ``./build`` directory
 	${SETUP} ${SETUPFLAGS} build
 
 
+.PHONY: test
 test:				## Run test suite
 	@echo Updating test tools
 	@${PIP} ${PIPFLAGS} install --upgrade pip
@@ -81,6 +87,7 @@ test:				## Run test suite
 	python -m pytest --cov=zeff && coverage html
 
 
+.PHONY: lint
 lint:				## Check source for conformance
 	@echo Checking source conformance
 	@echo Updating lint tools
@@ -107,6 +114,7 @@ updatedev:			## Update / init all packages for development environment
 	${PIP} ${PIPFLAGS} install --upgrade -e ".[lint]"
 	${PIP} ${PIPFLAGS} install --upgrade -e ".[docs]"
 
+.PHONY: help
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
 		sort | \
