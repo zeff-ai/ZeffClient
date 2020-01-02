@@ -4,11 +4,29 @@ __all__ = ["Configuration", "load_configuration"]
 
 
 import sys
-import logging
 import dataclasses
 import pathlib
 import importlib
 from configparser import ConfigParser, ExtendedInterpolation, ParsingError
+
+
+class ConfigurationValidationException(Exception):
+    """Exception that occurs while validating a configuration."""
+
+    def __init__(self, cause, message):
+        """Create new exception.
+
+        :param cause: The exception that caused this exception to be thrown.
+
+        :param message: The message associated with this exception.
+        """
+        super().__init__()
+        self.cause = cause
+        self.message = message
+
+    def __str__(self):
+        """Return message string for exception."""
+        return self.message
 
 
 @dataclasses.dataclass(init=False)
@@ -86,22 +104,26 @@ class Records:
                 # logging.debug("Found module `%s`", m_name)
                 value = getattr(module, c_name)
                 setattr(self, attrname, value)
-            except ValueError:
-                logging.debug(
-                    "Required value for [records]%s missing or incorrect format: ``%s``.",
-                    attrname,
-                    path,
+            except ValueError as err:
+                raise ConfigurationValidationException(
+                    err,
+                    "Required value for [records]{0} missing or incorrect format: ``{1}``.".format(
+                        attrname, path
+                    ),
                 )
-            except ModuleNotFoundError:
-                logging.debug(
-                    "[records]%s module `%s` not found in PYTHONPATH=%s",
-                    attrname,
-                    m_name,
-                    sys.path,
+            except ModuleNotFoundError as err:
+                raise ConfigurationValidationException(
+                    err,
+                    "[records]{0} module `{1}` not found in PYTHONPATH={2}".format(
+                        attrname, m_name, sys.path
+                    ),
                 )
-            except AttributeError:
-                logging.debug(
-                    "[records]%s class `%s` not found in %s", attrname, c_name, m_name
+            except AttributeError as err:
+                raise ConfigurationValidationException(
+                    err,
+                    "[records]{0} class `{1}` not found in {2}".format(
+                        attrname, c_name, m_name
+                    ),
                 )
 
         convert_mclass("records_config_generator")

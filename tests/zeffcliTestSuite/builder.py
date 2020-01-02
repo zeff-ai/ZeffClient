@@ -10,7 +10,7 @@ from zeff.record import *
 LOGGER = logging.getLogger("zeffclient.record_builder")
 
 
-class HousePriceRecordBuilder:
+class MockBuilder:
     """Zeff record builder callable object that builds HousePrice records.
 
     The callable object has a single `config` parameter that the record
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     options = parser.parse_args()
 
     try:
-        builder = HousePriceRecordBuilder()
+        builder = MockBuilder()
         record = builder(options.config)
         record.validate()
         format_record_restructuredtext(record, out=sys.stdout)

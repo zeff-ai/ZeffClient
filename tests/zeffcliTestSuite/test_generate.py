@@ -18,9 +18,9 @@ def test_upload_generate(chdir):
         "upload",
         "--no-train",
         "--dry-run=validate",
-        "--records-config-generator=tests.zeffcliTestSuite.generator.HousePriceRecordGenerator",
+        "--records-config-generator=tests.zeffcliTestSuite.generator.MockGenerator",
         f"--records-config-arg={pathlib.Path.cwd() / 'db.sqlite3'}",
-        "--record-builder=tests.zeffcliTestSuite.builder.HousePriceRecordBuilder",
+        "--record-builder=tests.zeffcliTestSuite.builder.MockBuilder",
     ]
     options = zeff.cli.parse_commandline(args)
     upload(options)
@@ -41,9 +41,9 @@ def test_predict_generate(chdir):
     args = [
         "predict",
         "--dry-run=validate",
-        "--records-config-generator=tests.zeffcliTestSuite.generator.HousePriceRecordGenerator",
+        "--records-config-generator=tests.zeffcliTestSuite.generator.MockGenerator",
         f"--records-config-arg={pathlib.Path.cwd() / 'db.sqlite3'}",
-        "--record-builder=tests.zeffcliTestSuite.builder.HousePriceRecordBuilder",
+        "--record-builder=tests.zeffcliTestSuite.builder.MockBuilder",
     ]
     options = zeff.cli.parse_commandline(args)
     upload(options)

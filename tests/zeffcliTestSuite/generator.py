@@ -3,7 +3,7 @@
 import sqlite3
 
 
-def HousePriceRecordGenerator(url):
+def MockGenerator(url):
     """TBW:
     """
     conn = sqlite3.connect(url)
@@ -19,5 +19,5 @@ def HousePriceRecordGenerator(url):
 
 
 if __name__ == "__main__":
-    for config in HousePriceRecordGenerator("./db.sqlite3"):
+    for config in MockGenerator("./db.sqlite3"):
         print(config)

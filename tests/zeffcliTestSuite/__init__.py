@@ -33,12 +33,19 @@ def chdir(request):
 @pytest.fixture(scope="function")
 def sys_path(request):
     """Reset sys.path."""
-    oldpath = sys.path
+    oldpath = list(sys.path)
 
     def reset():
         sys.path = oldpath
 
     request.addfinalizer(reset)
+
+
+@pytest.fixture(scope="function")
+def test_path(request, sys_path):
+    """Add the directory that contains the test to sys.path."""
+    path = os.path.dirname(request.module.__file__)
+    sys.path.append(path)
 
 
 def OFF_load_tests(loader, tests, pattern):

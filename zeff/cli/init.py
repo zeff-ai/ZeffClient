@@ -11,6 +11,7 @@ import importlib
 from zeff.zeffdatasettype import ZeffDatasetType
 from zeff.zeffcloud import ZeffCloudResourceMap
 from zeff.cloud import Dataset, ZeffCloudException
+from .configuration import ConfigurationValidationException
 
 
 def init_subparser(subparsers):
@@ -52,6 +53,9 @@ def init_project(options):
     except ValueError as err:
         print("ERROR:", err, file=sys.stderr)
         sys.exit(1)
+    except ConfigurationValidationException as err:
+        print("ERROR:", err, file=sys.stderr)
+        # sys.exit(1)
     except ZeffCloudException as err:
         print("ERROR:", err, file=sys.stderr)
         sys.exit(errno.EIO)

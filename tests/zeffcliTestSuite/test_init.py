@@ -10,7 +10,7 @@ import pytest
 import zeff.cli
 from zeff.cli.init import init_project, Project
 from zeff.cloud import Dataset
-from . import chdir, sys_path
+from . import chdir, sys_path, test_path
 
 
 @pytest.fixture(scope="session")
@@ -80,10 +80,14 @@ def assert_zeff_conf():
             assert config.get(section, option) == required.get(section, option)
 
 
-def test_init_new_project(tmpdir, chdir, sys_path, zeff_configuration):
-    """Initialize a new project and verify files and contents."""
-    tmpdir.chdir()
+@pytest.fixture(scope="function")
+def init_project_fixture(tmpdir, chdir, test_path):
     sys.path.append(tmpdir.strpath)
+    tmpdir.chdir()
+
+
+def test_init_new_project(init_project_fixture, zeff_configuration):
+    """Initialize a new project and verify files and contents."""
     env = {}
     args = ["init", "generic"]
     options = zeff.cli.parse_commandline(args, config=zeff_configuration)
@@ -96,10 +100,8 @@ def test_init_new_project(tmpdir, chdir, sys_path, zeff_configuration):
             assert_zeff_conf()
 
 
-def test_init_existing_project(tmpdir, chdir, zeff_configuration):
+def test_init_existing_project(init_project_fixture, zeff_configuration):
     """Run init on existing project and verify files and contents."""
-    tmpdir.chdir()
-    sys.path.append(tmpdir.strpath)
     env = {}
     args = ["init", "generic"]
     options = zeff.cli.parse_commandline(args, config=zeff_configuration)

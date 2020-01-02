@@ -6,6 +6,7 @@ __author__ = ("Lance Finn Helsten",)
 
 import sys
 import getpass
+from configparser import ConfigParser
 import re
 from pathlib import Path
 from git import Repo
@@ -14,13 +15,31 @@ import requests
 
 class GitHubAuth:
     def __init__(self):
-        self.user = input("GitHub Username: ")
-        # self.passwd = input("GitHub Password:")
-        self.passwd = getpass.getpass(prompt="GitHub Password: ")
-        self.refresh_otp()
+        try:
+            path = Path.home() / ".config" / "zeff" / "changelog.conf"
+            with open(path, "rt") as fp:
+                config = ConfigParser()
+                config.read_file(fp)
+            self.user = config["Server"]["username"]
+            self.passwd = config["Server"]["token"]
+        except FileNotFoundError:
+            self.user = input("GitHub Username: ")
+            self.passwd = getpass.getpass(prompt="GitHub Password: ")
+            self.refresh()
 
-    def refresh_otp(self):
+    def refresh(self):
         self.otp = input("GitHub OTP:      ")
+
+    @property
+    def authn(self):
+        return (self.user, self.passwd)
+
+    @property
+    def headers(self):
+        try:
+            return {"x-github-otp": self.otp}
+        except AttributeError:
+            return {}
 
 
 def git_commits():
@@ -39,11 +58,13 @@ def git_commits():
 def github_issue_labels(issue, githubauth):
     """Get the labels attached to a GitHub ``issue``."""
     url = f"https://api.github.com/repos/ziff/ZeffClient/issues/{issue}/labels"
-    authn = (githubauth.user, githubauth.passwd)
-    headers = {"x-github-otp": githubauth.otp}
+    authn = githubauth.authn
+    headers = githubauth.headers
     resp = requests.get(url, auth=authn, headers=headers)
     if resp.status_code == 401:
-        githubauth.refresh_otp()
+        githubauth.refresh()
+        authn = githubauth.authn
+        headers = githubauth.headers
         resp = requests.get(url, auth=authn, headers=headers)
     json = resp.json()
     ret = [label["name"] for label in json]
