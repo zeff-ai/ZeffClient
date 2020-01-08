@@ -26,7 +26,7 @@ echo ==========================================
 ${PYTHON} -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install git+ssh://git@github.com/ziff/ZeffClient.git
+python -m pip install ZeffClient
 if [ $? -ne 0 ]; then
 	exit $?
 fi

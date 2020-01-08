@@ -14,12 +14,8 @@ The steps taken to setup the directory are:
 
    3. ``pip install --upgrade pip``
 
-   4. ``pip install git+ssh://git@github.com/ziff/ZeffClient.git``
+   4. ``python -m pip install ZeffClient``
 
-      .. note::
-
-         This step will change when the repository becomes public
-         and ZeffClient is available in PyPi.
 
 The main command to work with ZeffClient is ``zeff``. To quickly see
 what options and subcommands are available use ``zeff --help``.

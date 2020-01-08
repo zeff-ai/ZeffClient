@@ -17,13 +17,7 @@ Project Setup
           ``pip install --upgrade pip``
 
 4. Install ZeffClient:
-       ``pip install git+ssh://git@github.com/ziff/ZeffClient.git``
-
-      .. note::
-
-         This step will change when the repository becomes public
-         and ZeffClient is available in PyPi. The command will change
-         to ``pip install ZeffClient``.
+   ``python -m pip install ZeffClient``
 
 5. Initialize the ZeffClient project based on the type of project:
    generic, geospatial, or temporal. To see all options for init
