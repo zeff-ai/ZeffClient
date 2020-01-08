@@ -55,17 +55,17 @@ Features
 Quickstart
 ==========
 
-   - `Examples <https://ziff.com/docs/zeffclient/examples/index.html>`_
+   - `Examples <https://zeff.ai/docs/zeffclient/examples/index.html>`_
 
 
 Links
 =====
 
-   - `Documentation <https://ziff.com/docs/zeffclient>`_
+   - `Documentation <https://zeff.ai/docs/zeffclient>`_
 
    - `Bugs / Requests <https://github.com/ziff/ZeffClient/issues>`_
 
-   - `Changelog <https://ziff.com/docs/zeffclient/changelog.html>`_
+   - `Changelog <https://zeff.ai/docs/zeffclient/changelog.html>`_
 
    - `Contributing <https://github.com/ziff/ZeffClient/blob/master/CONTRIBUTING.rst>`_
 
