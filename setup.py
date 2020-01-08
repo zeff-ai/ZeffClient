@@ -5,7 +5,7 @@
 #  / // -_)  _|  _| (__| | / -_) ' \  _|
 # /___\___|_| |_|  \___|_|_\___|_||_\__|
 #
-"""setup.py: ZeffClient is a tool to simplify working with Zeff Cloud API.
+"""ZeffClient is a tool to simplify working with Zeff Cloud API.
 
 :Author: Lance Finn Helsten <lanhel@zeff.ai>
 :Copyright: © 2019, Ziff, Inc. — All Rights Reserved

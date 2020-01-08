@@ -27,6 +27,8 @@ ZeffClient
    :alt: PyPi Downloads
    :target: https://pepy.tech/project/ZeffClient
 
+
+
 .. docs index include start
 
 
@@ -34,7 +36,7 @@ Overview
 ========
 
 ZeffClient is a command line tool and library to simplify working with
-Zeff Cloud API.
+Zeff AI Cloud API.
 
 
 
@@ -50,6 +52,12 @@ Features
    - Model training controls.
 
 
+Quickstart
+==========
+
+   - `Examples <https://ziff.com/docs/zeffclient/examples/index.html>`_
+
+
 Links
 =====
 
@@ -59,19 +67,7 @@ Links
 
    - `Changelog <https://ziff.com/docs/zeffclient/changelog.html>`_
 
-
-
-Contributing
-============
-
-Before creating your first commit:
-
-   1. Install `pre-commit <https://pre-commit.com>`_.
-   2. Execute ``pre-commit install``
-
-Before creating any commit:
-
-   1. ``make validate``
+   - `Contributing <https://github.com/ziff/ZeffClient/blob/master/CONTRIBUTING.rst>`_
 
 
 .. docs index include end

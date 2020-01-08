@@ -113,6 +113,7 @@ lint:				## Check source for conformance
 	@echo Updating lint tools
 	@${PIP} ${PIPFLAGS} install --upgrade pip
 	@${PIP} ${PIPFLAGS} install --upgrade -e ".[lint]"
+	black --check setup.py zeff tests
 	pylint -f parseable -r n zeff
 	pycodestyle zeff
 	pydocstyle zeff
