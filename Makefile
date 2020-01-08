@@ -40,8 +40,8 @@ install:			## Install system
 # ``export TWINE_PASSWORD=pypi-<token_value>``
 .PHONY: publish
 publish: clean		## Publish the library to the central PyPi repository
-	@${PIP} ${PIPFLAGS} install --upgrade pip setuptools wheel twine
-	@${PIP} ${PIPFLAGS} install --upgrade -e ".[docs]"
+	${PIP} ${PIPFLAGS} install --upgrade pip setuptools wheel twine
+	${PIP} ${PIPFLAGS} install --upgrade -e ".[docs]"
 	${SETUP} ${SETUPFLAGS} sdist bdist_wheel
 	python -m twine check dist/*
 	python -m twine upload --verbose dist/*
