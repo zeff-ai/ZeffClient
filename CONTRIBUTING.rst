@@ -25,14 +25,14 @@ Reporting Bugs
 --------------
 
 Bug reports may be made in the project's
-`issue <https://github.com/ziff/ZeffClient/issues>`_ page.
+`issue <https://github.com/zeff.ai/ZeffClient/issues>`_ page.
 
 
 Suggesting Enhancements
 -----------------------
 
 Enhangement requests may be made in the project's
-`issue <https://github.com/ziff/ZeffClient/issues>`_ page.
+`issue <https://github.com/zeff.ai/ZeffClient/issues>`_ page.
 
 
 Pull Requests

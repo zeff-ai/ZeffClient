@@ -75,7 +75,7 @@ def git_commits():
 
 def github_issue_labels(issue, githubauth):
     """Get the labels attached to a GitHub ``issue``."""
-    url = f"https://api.github.com/repos/ziff/ZeffClient/issues/{issue}/labels"
+    url = f"https://api.github.com/repos/zeff.ai/ZeffClient/issues/{issue}/labels"
     authn = githubauth.authn
     headers = githubauth.headers
     resp = requests.get(url, auth=authn, headers=headers)

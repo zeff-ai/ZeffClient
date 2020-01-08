@@ -7,7 +7,7 @@ steps:
     stage: clone
     type: git-clone
     description: "Cloning main repository..."
-    repo: "ziff/ZeffClient"
+    repo: "zeff.ai/ZeffClient"
     revision: "${{CF_BRANCH}}"
   PublishApproval:
     stage: deploy
@@ -24,7 +24,7 @@ steps:
   Publish:
     stage: deploy
     title: "Publish source, binary, and documentation"
-    image: "ziff/ZeffClient"
+    image: "zeff.ai/ZeffClient"
     commands:
       - make publish
     when:

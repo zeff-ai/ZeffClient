@@ -11,7 +11,7 @@ ZeffClient
 
 .. image:: https://g.codefresh.io/api/badges/pipeline/dgonzo/ZeffClient%2Fci_zeffclient?branch=master&key=eyJhbGciOiJIUzI1NiJ9.NWNlNDNhMDQ2MGNmOGMxZTZmY2NhNGVm.Hg2iF4tMbJKQVS6C019WtitMwcJckIdD1bK8NlYaM_c&type=cf-1
    :alt: codefresh Status
-   :target: https://g.codefresh.io/pipelines/ci_zeffclient/builds?repoOwner=ziff&repoName=ZeffClient&serviceName=ziff%2FZeffClient&filter=trigger:build~Build;branch:master;pipeline:5d0bdd0db5092ffa8c954a30~ci_zeffclient
+   :target: https://g.codefresh.io/pipelines/ci_zeffclient/builds?repoOwner=zeff.ai&repoName=ZeffClient&serviceName=zeff.ai%2FZeffClient&filter=trigger:build~Build;branch:master;pipeline:5d0bdd0db5092ffa8c954a30~ci_zeffclient
 
 .. Badge Coverage
 
@@ -19,9 +19,9 @@ ZeffClient
    :alt: Black Code Style
    :target: https://github.com/python/black
 
-.. image:: https://img.shields.io/github/commits-since/ziff/ZeffClient/latest.svg
+.. image:: https://img.shields.io/github/commits-since/zeff.ai/ZeffClient/latest.svg
    :alt: Commits Since
-   :target: https://github.com/ziff/ZeffClient/commits/
+   :target: https://github.com/zeff.ai/ZeffClient/commits/
 
 .. image:: http://pepy.tech/badge/ZeffClient
    :alt: PyPi Downloads
@@ -55,19 +55,19 @@ Features
 Quickstart
 ==========
 
-   - `Examples <https://zeff.ai/docs/zeffclient/examples/index.html>`_
+   - `Examples <https://docs.zeff.ai/zeffclient/examples/index.html>`_
 
 
 Links
 =====
 
-   - `Documentation <https://zeff.ai/docs/zeffclient>`_
+   - `Documentation <https://docs.zeff.ai/zeffclient>`_
 
-   - `Bugs / Requests <https://github.com/ziff/ZeffClient/issues>`_
+   - `Bugs / Requests <https://github.com/zeff.ai/ZeffClient/issues>`_
 
-   - `Changelog <https://zeff.ai/docs/zeffclient/changelog.html>`_
+   - `Changelog <https://docs.zeff.ai/zeffclient/changelog.html>`_
 
-   - `Contributing <https://github.com/ziff/ZeffClient/blob/master/CONTRIBUTING.rst>`_
+   - `Contributing <https://github.com/zeff.ai/ZeffClient/blob/master/CONTRIBUTING.rst>`_
 
 
 .. docs index include end

@@ -31,13 +31,13 @@ steps:
     type: git-clone
     stage: clone
     description: "Cloning main repository..."
-    repo: "ziff/ZeffClient"
+    repo: "zeff.ai/ZeffClient"
     revision: "${{CF_BRANCH}}"
   ZeffClientImage:
     type: build
     stage: build
     title: "Building ZeffClient Docker Image"
-    image_name: "ziff/ZeffClient"
+    image_name: "zeff.ai/ZeffClient"
     tag: "${{CF_BRANCH_TAG_NORMALIZED}}"
     dockerfile: .codefresh/Dockerfile
   UnitTests:

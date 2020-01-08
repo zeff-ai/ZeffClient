@@ -1,5 +1,5 @@
 - CF_REPO_NAME: ZeffClient
-  CF_REPO_OWNER: ziff
+  CF_REPO_OWNER: zeff.ai
   CF_BRANCH: master
   CF_BRANCH_TAG_NORMALIZED: master
   CF_SHORT_REVISION: 4cc3ff3
