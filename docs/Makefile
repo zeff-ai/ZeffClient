@@ -55,7 +55,7 @@ docs: uml example_archive apidoc
 
 
 apidoc:
-	sphinx-apidoc -o $(SOURCEDIR)/ ../zeff
+	sphinx-apidoc -o $(SOURCEDIR)/ ../src/zeff
 
 
 uml:
