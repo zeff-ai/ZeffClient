@@ -25,7 +25,7 @@ version = ".".join(release.split(".")[:2])
 
 project = "ZeffClient"
 copyright = f"2019, Ziff, Inc. ({release})"
-author = "Lance Finn Helsten <lanhel@flyingtitans.com>"
+author = "Lance Finn Helsten <lanhel@zeff.ai>"
 
 
 # -- General configuration ---------------------------------------------------
