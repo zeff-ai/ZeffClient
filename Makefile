@@ -79,7 +79,7 @@ clean:				## Clean generated files
 	@rm -rf .eggs
 	@rm -rf *.egg-info
 	@rm -rf pip-wheel-metadata
-	@find zeff -name '__pycache__' -exec rm -rf {} \; -prune
+	@find src -name '__pycache__' -exec rm -rf {} \; -prune
 	@find tests -name '__pycache__' -exec rm -rf {} \; -prune
 
 
@@ -101,10 +101,11 @@ build:				## Build into ``./build`` directory
 
 .PHONY: test
 test:				## Run test suite
+test: build
 	@echo Updating test tools
 	@${PIP} ${PIPFLAGS} install --upgrade pip
 	@${PIP} ${PIPFLAGS} install --upgrade -e ".[tests]"
-	python -m pytest --cov=zeff && coverage html
+	coverage run && coverage report && coverage html
 
 
 .PHONY: lint
@@ -113,17 +114,17 @@ lint:				## Check source for conformance
 	@echo Updating lint tools
 	@${PIP} ${PIPFLAGS} install --upgrade pip
 	@${PIP} ${PIPFLAGS} install --upgrade -e ".[lint]"
-	black --check setup.py zeff tests
-	pylint -f parseable -r n zeff
-	pycodestyle zeff
-	pydocstyle zeff
-	mypy zeff
+	black --check setup.py src tests
+	pylint -f parseable -r n src
+	pycodestyle src
+	pydocstyle src
+	mypy src
 
 
 format:				## Format source code to standard
 	@echo Formatting source
 	@${PIP} ${PIPFLAGS} install --upgrade -e ".[dev]"
-	find zeff -name '*.py' -exec black -q {} \;
+	find src -name '*.py' -exec black -q {} \;
 	find tests -name '*.py' -exec black -q {} \;
 
 

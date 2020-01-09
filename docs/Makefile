@@ -27,10 +27,10 @@
 VERSION       = $(shell cd .. && python -m setup --version)
 SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
-AWSS3         ?= aws --profile=zeff-docs s3
+AWSS3         ?= aws --profile=docs.zeff.ai s3
 SOURCEDIR     = source
 BUILDDIR      = ../build/share/zeffclient
-PUBLISHURL    = s3://zeff-docs/zeffclient/$(VERSION)
+PUBLISHURL    = s3://docs.zeff.ai/zeffclient/$(VERSION)
 
 # Put it first so that "make" without argument is like "make help".
 help:
@@ -40,7 +40,7 @@ help:
 publish: docs
 	$(AWSS3) sync "$(BUILDDIR)/html" $(PUBLISHURL)
 ifeq ($(findstring +,$(VERSION)),)
-	$(AWSS3) sync $(PUBLISHURL) s3://zeff-docs/zeffclient/latest
+	$(AWSS3) sync $(PUBLISHURL) s3://docs.zeff.ai/zeffclient/latest
 endif
 
 
