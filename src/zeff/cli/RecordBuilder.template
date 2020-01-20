@@ -68,7 +68,7 @@ if __name__ == "__main__":
     try:
         builderarg = config.records.record_builder_arg
         builder = ${c_name}(builderarg)
-        record = builder((options.recordtype == "model"), options.config)
+        record = builder((options.recordtype == "model"), config)
         if options.recordtype == "model" and record == None:
             print("Record is not a training record.")
         else:
