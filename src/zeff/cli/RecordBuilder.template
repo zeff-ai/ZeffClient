@@ -20,7 +20,7 @@ class ${c_name}():
     def __init__(self, arg: str):
         pass
 
-    def __call__(self, model: bool, config: str) -> Optional[Record]:
+    def __call__(self, model: bool, record_config: str) -> Optional[Record]:
         """Build and return a record.
 
         :param model: Flag to indicate if the record builder is building
@@ -28,13 +28,13 @@ class ${c_name}():
             it is for prediction, but if false then it is for training and
             any records not to be used for training should be filtered.
 
-        :param config: A configuration string that was created by the
-            record configuration generator.
+        :param record_config: Record configuration string created by
+            the record configuration generator.
         """
-        LOGGER.info("Begin building ``${name}`` record from %s", config)
+        LOGGER.info("Begin building ``${name}`` record from %s", record_config)
         record = Record(name="example")
         # Your record build code goes here
-        LOGGER.info("End building ``${name}`` record from %s", config)
+        LOGGER.info("End building ``${name}`` record from %s", record_config)
         return record
 
 
@@ -54,21 +54,20 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--version",
-        action="version",
-        version=f"%(prog)s {__version__}"
+        "--version", action="version", version=f"%(prog)s {__version__}"
     )
     parser.add_argument(
         "recordtype",
         choices=["model", "dataset"],
         help="What type of record should be created.",
     )
+    parser.add_argument("recordconfig", help="Record configuration string.")
     options = parser.parse_args()
     config = load_configuration()
     try:
         builderarg = config.records.record_builder_arg
         builder = ${c_name}(builderarg)
-        record = builder((options.recordtype == "model"), config)
+        record = builder((options.recordtype == "model"), options.record_config)
         if options.recordtype == "model" and record == None:
             print("Record is not a training record.")
         else:

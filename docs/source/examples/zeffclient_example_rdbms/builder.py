@@ -22,7 +22,7 @@ class HousePriceRecordBuilder:
         self.conn = sqlite3.connect(arg)
         self.conn.row_factory = sqlite3.Row
 
-    def __call__(self, model: bool, config: str) -> Optional[Record]:
+    def __call__(self, model: bool, record_config: str) -> Optional[Record]:
         """Build and return a record.
 
         :param model: Flag to indicate if the record builder is building
@@ -30,16 +30,16 @@ class HousePriceRecordBuilder:
             it is for prediction, but if false then it is for training and
             any records not to be used for training should be filtered.
 
-        :param config: A configuration string that was created by the
-            record configuration generator.
+        :param record_config: Record configuration string created by
+            the record configuration generator.
         """
-        LOGGER.info("Begin building ``HousePrice`` record from %s", config)
-        record = Record(name=config)
-        target = self.add_structured_data(record, config)
+        LOGGER.info("Begin building ``HousePrice`` record from %s", record_config)
+        record = Record(name=record_config)
+        target = self.add_structured_data(record, record_config)
         if not model and not target:
             return None
-        self.add_unstructured_data(record, config)
-        LOGGER.info("End building ``HousePrice`` record from %s", config)
+        self.add_unstructured_data(record, record_config)
+        LOGGER.info("End building ``HousePrice`` record from %s", record_config)
         return record
 
     def add_structured_data(self, record, id):
@@ -124,13 +124,13 @@ if __name__ == "__main__":
         choices=["model", "dataset"],
         help="What type of record should be created.",
     )
-    parser.add_argument("config", help="Configuration to build HousePrice record")
+    parser.add_argument("recordconfig", help="Record configuration string.")
     options = parser.parse_args()
     config = load_configuration()
     try:
         builderarg = config.records.record_builder_arg
         builder = HousePriceRecordBuilder(builderarg)
-        record = builder((options.recordtype == "model"), options.config)
+        record = builder((options.recordtype == "model"), options.recordconfig)
         if options.recordtype == "model" and record == None:
             print("Record is not a training record.")
         else:
