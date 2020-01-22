@@ -24,16 +24,11 @@ ZeffClient
    :target: https://github.com/python/black
 
 
-
-.. docs index include start
-
-
 Overview
 ========
 
 ZeffClient is a command line tool and library to simplify working with
 Zeff AI Cloud API.
-
 
 
 Features
@@ -65,8 +60,6 @@ Links
 
    - `Contributing <https://github.com/zeff-ai/ZeffClient/blob/master/CONTRIBUTING.rst>`_
 
-
-.. docs index include end
 
 Copyright
 =========

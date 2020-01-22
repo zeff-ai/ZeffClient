@@ -4,6 +4,7 @@ ZeffClient Changelog
 
 :Copyright: Copyright © 2019, Ziff, Inc. — All Rights Reserved
 
+.. sphinx start
 
 Version format is `PEP 440 <https://www.python.org/dev/peps/pep-0440/>`_
 compliant, and follows `Semantic Versioning <https://semver.org/>`_

@@ -23,9 +23,6 @@
     limitations under the License.
 """
 
-import sys
-import os
-
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(use_scm_version=True)

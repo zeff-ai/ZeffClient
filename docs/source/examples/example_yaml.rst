@@ -1,7 +1,6 @@
 =======================
 ZeffClient YAML Example
 =======================
-
 In this example we will create a record builder that will access a
 CSV file for information necessary to create the record.
 
@@ -82,9 +81,9 @@ data to the record.
 
 .. include:: zeffclient_example_yaml/builder.py
    :code: python
-   :number-lines: 25
-   :start-line: 24
-   :end-line: 35
+   :number-lines: 26
+   :start-line: 25
+   :end-line: 48
 
 Adding structured data is done through a select on the `properties`
 table in the database and then converting each returned column
@@ -92,9 +91,9 @@ table in the database and then converting each returned column
 
 .. include:: zeffclient_example_yaml/builder.py
    :code: python
-   :number-lines: 36
-   :start-line: 35
-   :end-line: 59
+   :number-lines: 49
+   :start-line: 48
+   :end-line: 83
 
 Adding unstructured data is done through a select on the
 `property_images` table in the databse and then creating an
@@ -102,6 +101,6 @@ unstructured data item.
 
 .. include:: zeffclient_example_yaml/builder.py
    :code: python
-   :number-lines: 62
-   :start-line: 61
-   :end-line: 74
+   :number-lines: 84
+   :start-line: 83
+   :end-line: 95

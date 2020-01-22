@@ -1,0 +1,3 @@
+Fixed record builder template so the record configuration string command
+line argument is used when building a record using the stand alone record
+builder module.

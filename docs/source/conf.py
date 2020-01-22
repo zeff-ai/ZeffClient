@@ -60,3 +60,14 @@ rst_epilog = """
 html_theme = "alabaster"
 
 html_static_path = ["_static"]
+
+html_sidebars = {
+    "**": [
+        "about.html",
+        "navigation.html",
+        "relations.html",
+        "searchbox.html",
+        "donate.html",
+        "links.html",
+    ]
+}

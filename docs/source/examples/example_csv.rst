@@ -82,8 +82,8 @@ data to the record.
 .. include:: zeffclient_example_csv/builder.py
    :code: python
    :number-lines: 25
-   :start-line: 24
-   :end-line: 35
+   :start-line: 25
+   :end-line: 48
 
 Adding structured data is done through a select on the `properties`
 table in the database and then converting each returned column
@@ -91,9 +91,9 @@ table in the database and then converting each returned column
 
 .. include:: zeffclient_example_csv/builder.py
    :code: python
-   :number-lines: 36
-   :start-line: 35
-   :end-line: 61
+   :number-lines: 48
+   :start-line: 48
+   :end-line: 84
 
 Adding unstructured data is done through a select on the
 `property_images` table in the databse and then creating an
@@ -101,6 +101,6 @@ unstructured data item.
 
 .. include:: zeffclient_example_csv/builder.py
    :code: python
-   :number-lines: 61
-   :start-line: 60
-   :end-line: 73
+   :number-lines: 84
+   :start-line: 84
+   :end-line: 97
