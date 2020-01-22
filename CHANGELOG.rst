@@ -21,3 +21,18 @@ of releases.
 
 .. towncrier release notes start
 
+zeff 1.0.3 (2020-01-22)
+=======================
+
+Bugfixes
+--------
+
+   - `#36 <https://github.com/zeff-ai/ZeffClient/issues/36>`_: Fixed record builder template so the record configuration string command line argument is used when building a record using the stand alone record builder module.
+
+
+Improved Documentation
+----------------------
+
+   - `#37 <https://github.com/zeff-ai/ZeffClient/issues/37>`_: Moved external links (e.g. main repository, issue tracker) from index to the sidebar to be available to all pages.
+
+

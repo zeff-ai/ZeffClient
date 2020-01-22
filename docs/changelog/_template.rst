@@ -2,9 +2,10 @@
 
 {% endif %} {% if sections[section] %} {% for category, val in definitions.items() if category in sections[section] %}
 
-{{ definitions[category]['name'] }} {{ underline * definitions[category]['name']|length }}
+{{ definitions[category]['name'] }}
+{{ underline * definitions[category]['name']|length }}
 
-{% if definitions[category]['showcontent'] %} {% for text, values in sections[section][category]|dictsort(by='value') %} {% set issue_joiner = joiner(', ') %} - {% for value in values|sort %}{{ issue_joiner() }}`{{ value }} <https://github.com/zeff.ai/ZeffClient/issues/{{ value[1:] }}>`_{% endfor %}: {{ text }}
+{% if definitions[category]['showcontent'] %} {% for text, values in sections[section][category]|dictsort(by='value') %} {% set issue_joiner = joiner(', ') %} - {% for value in values|sort %}{{ issue_joiner() }}`{{ value }} <https://github.com/zeff-ai/ZeffClient/issues/{{ value[1:] }}>`_{% endfor %}: {{ text }}
 
 {% endfor %} {% else %} - {{ sections[section][category]['']|sort|join(', ') }}
 
